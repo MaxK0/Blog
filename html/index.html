@@ -9,8 +9,8 @@
 </head>
 <body>
     <!-- <========================== HEADER ==========================> -->
-    <header class="container nav__container">  
-        <nav>
+    <header>  
+        <nav class="container">
             <a href="index.html" class="nav__logo">BLOG</a>
             <ul class="nav__items">
                 <li><a href="blog.html">Блог</a></li>
@@ -20,7 +20,7 @@
                 <li><a href="signin.html">Войти</a></li>
                 <li class="nav__profile">
                     <div class="avatar">
-                        <img src="assets/img/avatars/avatar1.jpg" alt="Аватар">
+                        <img src="assets/img/avatars/avatar1.png" alt="Аватар">
                     </div>
                     <ul>
                         <li><a href="dashboard.html">Панель</a></li>
@@ -29,11 +29,32 @@
                 </li>
             </ul>
         
-            <button class="open__nav-btn"><img src="assets/img/icons/menu.svg" alt="menu"></button>
-            <button class="close__nav-btn"><img src="assets/img/icons/menu.svg" alt="menu"></button>
+            <button class="open__nav-btn"></button>
+            <button class="close__nav-btn"></button>
         </nav>
     </header>
     <!-- <========================== END OF HEADER ==========================> -->
-
+    
+    <!-- <========================== FEATURED ==========================> -->
+    <section class="featured container">
+        <div class="post__thumbail">
+            <img src="assets/img/blog/blog2.jpg" alt="Фото для блога">
+        </div>
+        <div class="post__info">
+            <a class="category__button" href="">Wild Life</a>
+            <h2 class="post__title"><a href="post.html">Lorem ipsum, dolor sit amet consectetur adpisicing elit. Aliquid!</a></h2>
+            <p class="post__body">Lorem ipsum dolor sit amet consetetur adipisicing elit. At quidem reiciendis in fuga consequatur eligendi molestiae, magnam assumenda laborum inventore deleniti. Maiorse vel quod at atque officiis  seuiq blanditiis cupiditate.</p>
+            <div class="post__author">
+                <div class="post__author-avatar">
+                    <img src="assets/img/avatars/avatar1.png" alt="avatar"> 
+                </div> 
+                <div class="post__author-info">
+                    <h5>By: Jane Doe</h5>
+                    <small>June 10, 2022 - 07:83</small>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <========================== END OF FEATURED  ==========================> -->
 </body>
 </html>
