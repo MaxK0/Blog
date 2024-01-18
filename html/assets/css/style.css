@@ -28,7 +28,7 @@
     --card-border-radius-5: 5rem;
 }
 
-/* <================================ GENERAL ================================> */
+/* <================================ Основное ================================> */
 * {
     margin: 0;
     padding: 0;
@@ -56,7 +56,7 @@ img {
     width: 100%;
 }
 section {
-    margin-top: 3rem;
+    padding: 3rem 0;
     width: 100vw;
 }
 h1, h2, h3, h4, h5 {
@@ -88,9 +88,31 @@ a {
     max-width: 1800px;
     margin-inline: auto;
 }
-/* <================================ END OF GENERAL ================================> */
+.link-button {
+    border-radius: var(--card-border-radius-3);
+    
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+/* <================================ Конец основного ================================> */
 
-/* <================================ HEADER ================================> */
+/* <================================ Ссылки на соц. медиа ================================> */
+.youtube-link {
+    background-image: url('../img/icons/youtube.png');
+}
+.facebook-link {
+}
+.linkedin-link {
+}
+.twitter-link {
+}
+.instagram-link {
+}
+/* <================================ Конец ссылок ================================> */
+
+/* <================================ Шапка ================================> */
 header {
     display: flex;
     align-items: center;
@@ -166,9 +188,9 @@ nav > button {
     width: 2rem;
     height: 2rem;
 }
-/* <================================ END OF HEADER ================================> */
+/* <================================ Конец шапки ================================> */
 
-/* <================================ CATEGORY BUTTON ================================> */
+/* <================================ Кнопка категории ================================> */
 .category__button {
     background-color: var(--color-main-light);
     color: var(--color-main);
@@ -182,16 +204,16 @@ nav > button {
 .category__button:hover {
     color: var(--color-white);
 }
-/* <================================ END OF CATEGORY BUTTON ================================> */
+/* <================================ Конец кнопки категории ================================> */
 
-/* <================================ GENERAL ================================> */
-.post__thumbail {
+/* <================================ Общее для постов ================================> */
+.post__thumbnail {
     border-radius: var(--card-border-radius-5) 0;
     border: 1rem solid var(--color-gray-900);
     overflow: hidden;
-    margin-bottom: 1.6rem;
+    margin-bottom: 1rem;
 }
-.post:hover .post__thumbail img {
+.post:hover .post__thumbnail img {
     filter: saturate(0);
     transition: filter 500ms ease;
 }
@@ -206,17 +228,45 @@ nav > button {
     border-radius: var(--card-border-radius-3);
     overflow: hidden;
 }
-/* <================================ END OF GENERAL ================================> */
+/* <================================ Конец общего для постов ================================> */
 
-/* <================================ FEATURED ================================> */
+/* <================================ Рекомендация ================================> */
 .featured {
-    margin-top: 8rem;
+    margin-top: 4.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
 
 }
-.featured .post__thumbail {
+.featured .post__thumbnail {
     height: fit-content;
 }
-/* <================================ END OF FEATURED ================================> */
+/* <================================ Конец рекомендации ================================> */
+
+/* <================================ Посты ================================> */
+.posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+}
+/* <================================ Конец постов ================================> */
+
+/* <================================ Категории ================================> */
+.category__buttons {
+    padding: 4rem  0;
+    border-top: 2px solid var(--color-gray-900);
+    border-bottom: 2px solid var(--color-gray-900);
+}
+
+.category__buttons-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: fit-content;
+    margin-inline: auto;
+}
+/* <================================ Конец категорий ================================> */
+
+/* <================================ Подвал ================================> */
+
+/* <================================ Конец подвала ================================> */
