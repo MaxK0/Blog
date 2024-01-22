@@ -25,7 +25,7 @@
     --card-border-radius-2: 0.5rem;
     --card-border-radius-3: 0.8rem;
     --card-border-radius-4: 2rem;
-    --card-border-radius-5: 5rem;
+    --card-border-radius-5: 3rem;
 }
 
 /* <================================ Основное ================================> */
@@ -123,7 +123,7 @@ header > nav {
 .nav__profile ul {
     position: absolute;
     top: 125%;
-    right: 0;
+    right: 2rem;
     display: flex;
     flex-direction: column;
     box-shadow: 0 3rem 3rem rgba(0, 0, 0, 0.4);
@@ -317,32 +317,30 @@ footer {
     }
     /* <================================ Конец основного ================================> */
 
-    /* <================================ Навигация ================================> */
+    /* <================================ Навигация ================================> */    
     header nav button {
         display: inline-block;
         font-size: 1.5rem;
         background: transparent;
         cursor: pointer;
     }
+    .nav__icons {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
     .close__nav-btn {
-        display: none;
-        position: absolute;
-        top: 0rem;
-        right: 1.5rem;
+        display: none;      
     }
-    .open__nav-btn {
-        position: absolute;
-        top: 0rem;
-        right: 1.5rem;
-    }
+    
     header nav {
         position: relative;
     }
     .nav__items {
         position: absolute;
         flex-direction: column;
-        top: 3.24rem;
-        right: 1.5rem;
+        top: 3.5rem;
+        right: 4.5rem;
         width: 12rem;
         align-items: flex-start;
         justify-content: center;
@@ -379,17 +377,9 @@ footer {
         display: flex;
         align-items: center;
     }    
-    li.nav__profile {
-        display: flex;
-        position: absolute;
-        width: fit-content;
-        top: -4.6rem;
-        right: -4rem;
-        box-shadow: none;
-    }    
+      
     .nav__profile ul {
-        top: 4.6rem;
-        right: 2rem;
+        top: 3.5rem;
     }
     .nav__profile .avatar {
         border: 0;
@@ -411,6 +401,7 @@ footer {
     /* <================================ Подвал ================================> */
     .footer__nav {
         row-gap: 3rem;
+        justify-content: center;
     }    
     .footer__nav > div {
         width: 40%;
@@ -422,6 +413,42 @@ footer {
         margin-left: 4rem;
     }
     /* <================================ Конец подвала ================================> */    
+}
+
+@media screen and (max-width: 600px) {
+    /* <================================ Основное ================================> */    
+    section {
+        padding: 2rem 0;
+    }
+    h1 {
+        font-size: 2rem;
+    }   
+    
+    /* <================================ Рекомендуемое и посты ================================> */    
+    .featured {
+        margin-top: 4rem;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }    
+    .posts {
+        grid-template-columns: 1fr;
+    }
+    /* <================================ Конец рекомендуемого и постов ================================> */    
+
+    /* <================================ Категории и подвал ================================> */    
+    .category__buttons-container {
+        grid-template-columns: 1fr 1fr;        
+    }    
+    .footer__nav {
+        column-gap: 2rem;
+    }
+    .footer__nav h4 {
+        margin-left: 2rem;
+    }
+    .footer__nav ul {
+        margin-left: 2rem;
+    }
+    /* <================================ Конец категорий и подвала ================================> */    
 }
 /* <================================ Конец media ================================> */
 
