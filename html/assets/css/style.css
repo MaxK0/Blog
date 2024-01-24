@@ -364,7 +364,7 @@ footer {
 /* <================================ Конец post.html ================================> */
 
 /* <================================ category-posts.html ================================> */
-.category__title {
+.section__title {
     height: 6rem;
     margin-top: 4.5rem;
     background-color: var(--color-gray-900);
