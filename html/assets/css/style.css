@@ -19,7 +19,7 @@
 
     --container-width-lg: 74%;
     --container-width-md: 88%;
-    --form-width: 40%;
+    --form-width: 30%;
 
     --card-border-radius-1: 0.3rem;
     --card-border-radius-2: 0.5rem;
@@ -37,6 +37,7 @@
     appearance: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing: border-box;
 }
 body {
     font-family: 'Montserrat', sans-serif;
@@ -91,8 +92,6 @@ a {
 /* <================================ Конец основного ================================> */
 
 /* <================================ Основная форма ================================> */
-
-/* <================================ Конец основной формы ================================> */
 .form__section {
     display: flex;
     flex-direction: column;
@@ -154,6 +153,8 @@ input, textarea, select {
     cursor: pointer;
     transition: var(--transition);
 }
+/* <================================ Конец основной формы ================================> */
+
 /* <================================ Шапка ================================> */
 header {
     display: flex;
@@ -437,6 +438,9 @@ footer {
 
 /* <================================ Media ================================> */
 @media screen and (max-width: 1024px) {
+    :root {
+        --form-width: 50%;
+    }
     /* <================================ Основное ================================> */
     .container {
         width: var(--container-width-md);
@@ -519,9 +523,12 @@ footer {
     .nav__profile .avatar {
         border: 0;
         background: none;
-    }
-    
+    }    
     /* <================================ Конец навигации ================================> */
+
+    .form__section {
+        width: var(--form-width);
+    }
 
     /* <================================ Поиск ================================> */
     .search__bar {
@@ -569,6 +576,9 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
+    :root {
+        --form-width: 70%;
+    }
     /* <================================ Основное ================================> */    
     section {
         padding: 2rem 0;
