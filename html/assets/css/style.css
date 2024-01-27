@@ -143,6 +143,11 @@ input, textarea, select {
 
 }
 
+.form__control.inline {
+    flex-direction: row;
+    align-items: center;
+}
+
 .btn {
     display: inline-block;
     color: var(--color-white);
