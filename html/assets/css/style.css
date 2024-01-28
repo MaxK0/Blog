@@ -437,8 +437,7 @@ footer {
 
 /* <================================ category-posts.html ================================> */
 .section__title {
-    height: 6rem;
-    margin-top: 4.5rem;
+    margin-top: 3rem;
     background-color: var(--color-gray-900);
     display: grid;
     place-items: center;
