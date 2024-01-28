@@ -158,6 +158,17 @@ input, textarea, select {
     cursor: pointer;
     transition: var(--transition);
 }
+.btn.sm {
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+}
+.btn.danger {
+    background: var(--color-red);
+}
+.btn:hover {
+    background-color: var(--color-white);
+    color: var(--color-bg);
+}
 /* <================================ Конец основной формы ================================> */
 
 /* <================================ Шапка ================================> */
@@ -441,6 +452,73 @@ footer {
 }
 /* <================================ Конец contact.html ================================> */
 
+/* <================================ dashboard ================================> */
+.dashboard {
+    margin-top: 4rem;
+}
+.dashboard__container {
+    display: grid;
+    grid-template-columns: 14rem auto;
+    gap: 3rem;
+    padding: 1.5rem;
+    background-color: var(--color-gray-900);
+}
+.sidebar__toggle {
+    display: none;
+}
+#hide__sidebar-btn {
+    transform: rotate(180deg);
+}
+
+.dashboard aside li {
+    background-color: var(--color-main);
+}
+.dashboard aside li:not(:last-child) {
+    border-bottom: 1px solid var(--color-gray-900);
+}
+.dashboard aside li:hover {
+    background: var(--color-gray-700);
+}
+.dashboard aside li a {
+    padding: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.dashboard aside li a img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.dashboard .active {
+    background-color: var(--color-gray-900);
+}
+
+.dashboard main h2 {
+    margin: 0 0 2rem 0;
+    line-height: 1;
+}
+.dashboard main table {
+    width: 100%;
+    text-align: left;
+}
+.dashboard main table th {
+    background-color: var(--color-gray-700);
+    padding: 0.8rem;
+    color: var(--color-white);
+}
+.dashboard main table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+.dashboard main table tr:hover td {
+    background-color: var(--color-bg);
+    color: var(--color-white);
+    transition: var(--transition);
+}
+/* <================================ Конец dashboard ================================> */
+
+
 /* <================================ Media ================================> */
 @media screen and (max-width: 1024px) {
     :root {
@@ -555,6 +633,36 @@ footer {
     }
     /* <================================ Конец постов ================================> */
     
+    /* <================================ dashboard ================================> */
+    .dashboard__container {
+        grid-template-columns: 4.2rem auto;
+        padding: 0;
+        background: transparent;
+    }    
+    .dashboard aside h4 {
+        display: none;
+    }
+    .dashboard aside ul li a img {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .dashboard main table thead {
+        display: none;
+    }
+    .dashboard main table tr {
+        display: flex;
+        flex-direction: column;
+    }
+    .dashboard main table tr:nth-child(even) {
+        background-color: var(--color-gray-900);
+    }
+    .dashboard main table tr:hover td {
+        background: transparent;
+    }
+    /* <================================ Конец dashboard ================================> */
+
+    
     /* <================================ Подвал ================================> */
     .footer__nav {
         row-gap: 3rem;
@@ -609,6 +717,54 @@ footer {
         grid-template-columns: 1fr;
     }
     /* <================================ Конец рекомендуемого и постов ================================> */    
+    
+    /* <================================ dashboard ================================> */    
+    .dashboard__container {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .dashboard main {
+        margin: 0;
+    }
+    .dashboard main h2 {
+        margin-top: 1rem;
+    }
+
+    .dashboard aside {
+        position: fixed;
+        box-shadow: 2rem 0 4rem rgba(0, 0, 0, 0.4);
+        top: 4.5rem;
+        left: -100%;
+        height: 100vh;
+        transition: var(--transition);
+        background: var(--color-main);
+        z-index: 2;
+    }
+    .dashboard aside a h4 {
+        display: inline-block;
+    }
+
+    .dashboard .sidebar__toggle {
+        display: grid;
+        place-content: center;
+        background-color: var(--color-main-variant);
+        position: fixed;
+        right: -0.4rem;
+        bottom: 4rem;
+        z-index: 3;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 25%;
+        box-shadow: -1rem 0 2rem rgba(0, 0, 0, 0.2);
+    }
+    .dashboard .sidebar__toggle img {
+        width: 1.2rem;
+    }
+    #hide__sidebar-btn {
+        display: none;
+    }
+    /* <================================ Конец dashboard ================================> */    
 
     /* <================================ Категории и подвал ================================> */    
     .category__buttons-container {
