@@ -751,7 +751,7 @@ footer {
         background-color: var(--color-main-variant);
         position: fixed;
         right: -0.4rem;
-        bottom: 4rem;
+        bottom: 5rem;
         z-index: 3;
         width: 2.5rem;
         height: 2.5rem;
