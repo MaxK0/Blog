@@ -113,6 +113,9 @@ a {
     background: var(--color-green-light);
     color: var(--color-green)
 }
+.alert__message.lg {
+    text-align: center;
+}
 
 form {
     display: flex;
@@ -392,10 +395,19 @@ footer {
 }
 
 .footer__nav {
-    margin-top: 5rem;
+    margin-top: 3rem;
     display: flex;
+    flex-direction: row;
+}
+.couple__nav {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
-    flex-wrap: wrap;
+}        
+.couple__nav > div {
+    display: flex;
+    flex-direction: column;        
 }
 
 .footer__nav h4 {
@@ -419,20 +431,20 @@ footer {
 /* <================================ Конец подвала ================================> */
 
 /* <================================ post.html ================================> */
-    .singlepost {   
-        margin-top: 6rem;
-        margin-bottom: 1rem;
-        padding: 1rem 2rem;
-        width: 50%;
-        background-color: var(--color-gray-900);
-    }
-    .singlepost__thumnail {
-        margin-top: 1.5rem;
-    }
-    .singlepost__text p {
-        margin-top: 1rem;
-        line-height: 1.7;
-    }
+.singlepost {   
+    margin-top: 6rem;
+    margin-bottom: 1rem;
+    padding: 1rem 2rem;
+    width: 50%;
+    background-color: var(--color-gray-900);
+}
+.singlepost__thumnail {
+    margin-top: 1.5rem;
+}
+.singlepost__text p {
+    margin-top: 1rem;
+    line-height: 1.7;
+}
 /* <================================ Конец post.html ================================> */
 
 /* <================================ category-posts.html ================================> */
@@ -662,20 +674,21 @@ footer {
     /* <================================ Конец dashboard ================================> */
 
     
-    /* <================================ Подвал ================================> */
+    /* <================================ Подвал ================================> */    
     .footer__nav {
-        row-gap: 3rem;
-        justify-content: center;
-    }    
-    .footer__nav > div {
-        width: 40%;
-    }    
-    .footer__nav h4 {
-        margin-left: 4rem;
+        flex-direction: column;
+        row-gap: 2rem;
+        align-items: center;
     }
-    .footer__nav ul {
-        margin-left: 4rem;
+    .couple__nav {
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: nowrap;
     }
+    .couple__nav > div {
+        width: 11rem;
+    }
+
     /* <================================ Конец подвала ================================> */  
     
     /* <================================ post.html ================================> */  
@@ -689,7 +702,7 @@ footer {
 
 @media screen and (max-width: 600px) {
     :root {
-        --form-width: 70%;
+        --form-width: 90%;
     }
     /* <================================ Основное ================================> */    
     section {
@@ -769,14 +782,11 @@ footer {
     .category__buttons-container {
         grid-template-columns: 1fr 1fr;        
     }    
-    .footer__nav {
-        column-gap: 2rem;
+    .couple__nav {
+        justify-content: space-around;
     }
-    .footer__nav h4 {
-        margin-left: 2rem;
-    }
-    .footer__nav ul {
-        margin-left: 2rem;
+    .couple__nav > div {
+        width: 6rem;
     }
     /* <================================ Конец категорий и подвала ================================> */   
 }
