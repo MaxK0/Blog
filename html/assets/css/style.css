@@ -113,6 +113,9 @@ a {
     background: var(--color-green-light);
     color: var(--color-green)
 }
+.alert__message.lg {
+    text-align: center;
+}
 
 form {
     display: flex;
