@@ -33,7 +33,7 @@ class Route {
         return $this->method;
     }
 
-    public function getAction(): callable {
+    public function getAction(): mixed {
         return $this->action;
     }
 
