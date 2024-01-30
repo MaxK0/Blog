@@ -2,8 +2,6 @@
 
 namespace App\Kernel;
 
-use App\Kernel\Router\Router;
-use App\Kernel\Http\Request;
 use App\Kernel\Container\Container;
 
 class App {

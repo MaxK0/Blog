@@ -2,11 +2,15 @@
 
 namespace App\Controllers;
 
-class HomeController {
+use App\Kernel\View\View;
+use App\Kernel\Controller\Controller;
 
-    /** Создает страницу сайта */
-    public function index() {
-        include_once APP_PATH . '/views/pages/index.php';
+class HomeController extends Controller {
+
+    public function index(): void {       
+        $view = new View();
+        
+        $view->page('home');
     }
 
 }
