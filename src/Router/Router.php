@@ -2,6 +2,9 @@
 
 namespace App\Router;
 
+/**
+ * Класс, который отвечает за маршрутизацию
+ */
 class Router {
 
     private array $routes = [

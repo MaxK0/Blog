@@ -2,6 +2,9 @@
 
 namespace App\Router;
 
+/**
+ * Класс для создания объектов маршрутов
+ */
 class Route {
 
     public function __construct(
@@ -12,10 +15,12 @@ class Route {
     {        
     }
 
+    /** Возвращает объект, присваивая ему метод GET */
     public static function get(string $uri, $action): static {
         return new static($uri, 'GET', $action);
     }
 
+    /** Возвращает объект, присваивая ему метод POST */
     public static function post(string $uri, $action): static {
         return new static($uri, 'POST', $action);
     }
@@ -31,6 +36,5 @@ class Route {
     public function getAction(): callable {
         return $this->action;
     }
-
 
 }
