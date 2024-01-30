@@ -1,7 +1,7 @@
 <?php
 
 use App\Controllers\HomeController;
-use App\Router\Route;
+use App\Kernel\Router\Route;
 
 // [Controller::class, 'index'] - массив с адресом до класса и названием метода для вызова
 // Controller::class - адрес до класса

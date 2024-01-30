@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Router;
+namespace App\Kernel\Router;
 
 /**
  * Класс, который отвечает за маршрутизацию
