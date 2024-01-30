@@ -4,14 +4,23 @@ namespace App\Kernel;
 
 use App\Kernel\Router\Router;
 use App\Kernel\Http\Request;
+use App\Kernel\Container\Container;
 
 class App {
 
-    public function run() {
-        $router = new Router();
-        $request = Request::createFromGlobals();
+    private Container $container;
 
-        $router->dispatch($request->uri(), $request->method());
+    public function __construct() {
+        $this->container = new Container();
+    }
+
+    public function run() {          
+        $this->container
+        ->router
+        ->dispatch(
+            $this->container->request->uri(), 
+            $this->container->request->method()
+        );
     }
 
 }
