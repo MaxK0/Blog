@@ -7,10 +7,8 @@ use App\Kernel\Controller\Controller;
 
 class HomeController extends Controller {
 
-    public function index(): void {       
-        $view = new View();
-        
-        $view->page('home');
+    public function index(): void {               
+        $this->view('/home');
     }
 
 }
