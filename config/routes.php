@@ -10,6 +10,7 @@ use App\Kernel\Router\Route;
  * Содерижит в себе экземпляры роутов, с определенными методами http, uri и шаблонами для uri.
  */
 return [
+    Route::get('/', [HomeController::class, 'index']),
     Route::get('/home', [HomeController::class, 'index']),
     
 ];

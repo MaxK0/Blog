@@ -46,7 +46,11 @@
             <input type="text" placeholder="Никнейм">
             <input type="text" placeholder="Эл. почта">
             <input type="text" placeholder="Пароль">
-            <input type="text" placeholder="Повтор пароля">            
+            <input type="text" placeholder="Повтор пароля">
+            <select>
+                <option value="0">Автор</option>
+                <option value="1">Админ</option>
+            </select>
             <div class="form__control">
                 <label for="avatar">Аватар</label>
                 <input type="file" id="avatar">
