@@ -27,7 +27,13 @@ class SignupController extends Controller {
     }
     
     public function signup(): void {
+        $error = $this->request()->validate(
+            ['name' => ['required', 'min:3']]
+        );
 
+        if (!$error) dd($this->request()->errors());
+
+        dd('Ок');
     }
 
 }
