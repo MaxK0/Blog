@@ -4,7 +4,7 @@
         <ul class="nav__items">
             <li><a href="about">О нас</a></li>
             <li><a href="services">Сервисы</a></li>
-            <li><a href="contact">Контакты</a></li>
+            <li><a href="contacts">Контакты</a></li>
             <li><a href="signin">Войти</a></li>                
         </ul>
 
