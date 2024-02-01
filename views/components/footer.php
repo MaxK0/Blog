@@ -1,11 +1,11 @@
 <footer>
     <div class="container">
         <div class="footer__socials">
-            <a href="*" class="link-button" target="_blank"><img src="assets/img/icons/youtube.png" alt=""></a>
-            <a href="*" class="link-button" target="_blank"><img src="assets/img/icons/facebook.png" alt=""></a>
-            <a href="*" class="link-button" target="_blank"><img src="assets/img/icons/linkedin.png" alt=""></a>
-            <a href="*" class="link-button" target="_blank"><img src="assets/img/icons/twitter.png" alt=""></a>
-            <a href="*" class="link-button" target="_blank"><img src="assets/img/icons/instagram.png" alt=""></a>
+            <a href="*" class="link-button" target="_blank"><img src="/assets/img/icons/youtube.png" alt=""></a>
+            <a href="*" class="link-button" target="_blank"><img src="/assets/img/icons/facebook.png" alt=""></a>
+            <a href="*" class="link-button" target="_blank"><img src="/assets/img/icons/linkedin.png" alt=""></a>
+            <a href="*" class="link-button" target="_blank"><img src="/assets/img/icons/twitter.png" alt=""></a>
+            <a href="*" class="link-button" target="_blank"><img src="/assets/img/icons/instagram.png" alt=""></a>
         </div>
         <nav class="footer__nav">
             <div class="couple__nav">

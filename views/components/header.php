@@ -1,6 +1,6 @@
 <header>  
     <nav class="container">
-        <a href="index.html" class="nav__logo">BLOG</a>
+        <a href="home" class="nav__logo">BLOG</a>
         <ul class="nav__items">
             <li><a href="about">О нас</a></li>
             <li><a href="services">Сервисы</a></li>
@@ -13,7 +13,7 @@
             <button class="close__nav-btn"></button>
             <div class="nav__profile">
                 <div class="avatar">
-                    <img src="assets/img/avatars/avatar1.png" alt="Аватар">
+                    <img src="/assets/img/avatars/avatar1.png" alt="Аватар">
                 </div>
                 <ul>
                     <li><a href="dashboard">Панель</a></li>
