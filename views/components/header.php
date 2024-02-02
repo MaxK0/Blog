@@ -1,11 +1,11 @@
 <header>  
     <nav class="container">
-        <a href="home" class="nav__logo">BLOG</a>
+        <a href="/home" class="nav__logo">BLOG</a>
         <ul class="nav__items">
-            <li><a href="about">О нас</a></li>
-            <li><a href="services">Сервисы</a></li>
-            <li><a href="contacts">Контакты</a></li>
-            <li><a href="signin">Войти</a></li>                
+            <li><a href="/about">О нас</a></li>
+            <li><a href="/services">Сервисы</a></li>
+            <li><a href="/contacts">Контакты</a></li>
+            <li><a href="/signin">Войти</a></li>                
         </ul>
 
         <div class="nav__icons">
@@ -16,8 +16,8 @@
                     <img src="/assets/img/avatars/avatar1.png" alt="Аватар">
                 </div>
                 <ul>
-                    <li><a href="dashboard">Панель</a></li>
-                    <li><a href="logout">Выйти</a></li>
+                    <li><a href="/dashboard">Панель</a></li>
+                    <li><a href="/logout">Выйти</a></li>
                 </ul>
             </div>
         </div>           

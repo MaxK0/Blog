@@ -19,7 +19,7 @@ $view->component('start');
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/dashboard/posts">
+                    <a href="/admin/dashboard/posts" class="active">
                         <img src="/assets/img/icons/post.png" alt="">
                         <h4>Управлять постами</h4>
                     </a>
@@ -43,7 +43,7 @@ $view->component('start');
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/dashboard/categories" class="active">
+                    <a href="/admin/dashboard/categories">
                         <img src="/assets/img/icons/list.png" alt="">
                         <h4>Управлять категориями</h4>
                     </a>
@@ -53,26 +53,25 @@ $view->component('start');
         </aside>
 
         <main>
-            <h2>Управление категориями</h2>
+            <h2>Управление постами</h2>
             <table>
                 <thead>
                     <tr>
                         <th>Заголовок</th>
+                        <th>Категории</th>
                         <th>Редактировать</th>
                         <th>Удалить</th>
+                        <th>Пользователь</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Путешествие</td>
-                        <td><a href="/admin/category/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/admin/category/delete" class="btn sm danger">Удалить</a></td>
-                    </tr>
-                    <tr>
+                        <td>Заголовок</td>
                         <td>Природа</td>
-                        <td><a href="/admin/category/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/admin/category/delete" class="btn sm danger">Удалить</a></td>
-                    </tr>                    
+                        <td><a href="/post/edit" class="btn sm">Редактировать</a></td>
+                        <td><a href="/post/add" class="btn sm danger">Удалить</a></td>
+                        <td>user</td>
+                    </tr>                        
                 </tbody>
             </table>
         </main>
