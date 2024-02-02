@@ -11,7 +11,7 @@ class CategoryController extends Controller {
     }
 
     public function manage(): void {
-        $this->view('manage-categories');
+        $this->view('admin/manage-categories');
     }
 
     public function add(): void {

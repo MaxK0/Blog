@@ -7,7 +7,7 @@ use App\Kernel\Controller\Controller;
 class DashboardController extends Controller {
 
     public function index(): void {
-        $this->view('dashboard');
+        $this->view('manage-posts');
     }
     
 }

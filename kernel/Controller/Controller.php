@@ -34,8 +34,8 @@ abstract class Controller {
         $this->redirect->to($url);
     }
 
-    public function setRedirect(Request $request): void {
-        $this->request = $request;
+    public function setRedirect(Redirect $redirect): void {
+        $this->redirect = $redirect;
     }
 
     public function session(): Session {

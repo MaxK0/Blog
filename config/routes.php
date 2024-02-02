@@ -44,7 +44,9 @@ return [
     Route::post('/admin/category/edit', [CategoryController::class, 'store']),
     
     Route::get('/dashboard', [DashboardController::class, 'index']),
+    Route::get('/dashboard/posts', [DashboardController::class, 'index']),
     Route::get('/admin/dashboard', [DashboardAdminController::class, 'index']),
+    Route::get('/admin/dashboard/posts', [DashboardAdminController::class, 'index']),
     Route::get('/admin/dashboard/users', [SignupController::class, 'manage']),
     Route::get('/admin/dashboard/categories', [CategoryController::class, 'manage']),
 
