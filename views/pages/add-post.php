@@ -11,24 +11,26 @@ $view->component('start');
     <div class="alert__message error">
         <p>Сообщение об ошибке</p>
     </div>
-    <form action="" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <input type="text" placeholder="Заголовок">
-        <select>
+        <select name="category">
             <option value="1">Путешествие</option>
-            <option value="1">Искусство</option>
-            <option value="1">Наука & Технологии</option>
-            <option value="1">Природа</option>
-            <option value="1">Еда</option>
-            <option value="1">Музыка</option>
+            <option value="2">Искусство</option>
+            <option value="3">Наука & Технологии</option>
+            <option value="4">Природа</option>
+            <option value="5">Еда</option>
+            <option value="6">Музыка</option>
         </select>            
-        <textarea rows="10" placeholder="Текст поста"></textarea>
+        <textarea name="text" rows="10" placeholder="Текст поста"></textarea>
+        <!-- TODO: только для админа -->
         <div class="form__control inline">
-            <input type="checkbox" id="is_featured">
-            <label for="is_featured" checked>Избранное</label>
+            <input type="checkbox" name="isFeatured" id="is_featured">
+            <label for="is_featured">Избранное</label>
         </div>
+
         <div class="form__control">
             <label for="thumbnail">Добавить картинку</label>
-            <input type="file" id="thumbnail">
+            <input type="file" name="thumbnail" id="thumbnail">
         </div>
         <button type="submit" class="btn">Добавить пост</button>
     </form>

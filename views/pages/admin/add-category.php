@@ -11,9 +11,9 @@ $view->component('start');
     <div class="alert__message error">
         <p>Сообщение об ошибке</p>
     </div>
-    <form action="">
-        <input type="text" placeholder="Заголовок">            
-        <textarea rows="4" placeholder="Описание"></textarea>
+    <form method="post">
+        <input name="title" type="text" placeholder="Заголовок">            
+        <textarea name="desc" rows="4" placeholder="Описание"></textarea>
         <button type="submit" class="btn">Добавить</button>
     </form>
 </section>
