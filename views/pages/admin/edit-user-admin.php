@@ -9,37 +9,28 @@ $view->component('start');
 <section class="form__section container">
     <h2>Изменить пользователя</h2>        
     <form method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Имя">
-        <?php $view->errorInForm('name'); ?>
-        
-        <input type="text" name="surname" placeholder="Фамилия">
-        <?php $view->errorInForm('surname'); ?>
+        <?php 
+        $view->inputAndError('name', 'Имя'); 
+        $view->inputAndError('surname', 'Фамилия'); 
+        $view->inputAndError('nick', 'Ник'); 
+        $view->inputAndError('email', 'Email'); 
+        $view->inputAndError('password', 'Пароль'); 
+        $view->inputAndError('passwordRepeat', 'Повтор пароля'); 
+        ?>
 
-        <input type="text" name="nick" placeholder="Никнейм">
-        <?php $view->errorInForm('nick'); ?>
-        
-        <input type="text" name="email" placeholder="Эл. почта">
-        <?php $view->errorInForm('email'); ?>
-
-        <input type="text" name="password" placeholder="Пароль">
-        <?php $view->errorInForm('password'); ?>
-
-        <input type="text" name="passwordRepeat" placeholder="Повтор пароля">
-        <?php $view->errorInForm('passwordRepeat'); ?>
-        
         <select name="isAdmin">
             <option value="0">Автор</option>
             <option value="1">Админ</option>
         </select>
-        <?php $view->errorInForm('isAdmin'); ?>
-        
+        <?php $view->error('isAdmin'); ?>
+
         <div class="form__control">
             <label for="avatar">Аватар</label>
-            <input type="file" name="avatar" id="avatar">
+            <?php $view->input('avatar', 'Аватар', 'file'); ?>
         </div>
-        <?php $view->errorInForm('avatar'); ?>
-        
-        <button type="submit" class="btn">Изменить пользователя</button>
+        <?php $view->error('avatar'); ?>
+
+        <button type="submit" class="btn">Изменить</button>
     </form>
 </section>
 

@@ -9,8 +9,7 @@ $view->component('start');
 <section class="form__section container">
     <h2>Добавить пост</h2>    
     <form method="post" enctype="multipart/form-data">
-        <input type="text" name="title" placeholder="Заголовок">
-        <?php $view->errorInForm('title'); ?>
+        <?php $view->inputAndError('title', 'Заголовок'); ?>        
         
         <select name="category">
             <option value="1">Путешествие</option>
@@ -20,25 +19,25 @@ $view->component('start');
             <option value="5">Еда</option>
             <option value="6">Музыка</option>
         </select>            
-        <?php $view->errorInForm('category'); ?>
+        <?php $view->error('category'); ?>
         
-        <textarea name="text" rows="10" placeholder="Текст поста"></textarea>
-        <?php $view->errorInForm('text'); ?>
+        <textarea class="<?= $view->setInvalid('text') ?>" name="text" rows="10" placeholder="Текст поста"></textarea>
+        <?php $view->error('text'); ?>
         
         <!-- TODO: только для админа -->
         <div class="form__control inline">
-            <input type="checkbox" name="isFeatured" id="is_featured">
+            <?php $view->inputAndError('isFeatured', type: 'checkbox'); ?>
             <label for="is_featured">Избранное</label>
         </div>
-        <?php $view->errorInForm('isFeatured'); ?>
+        <?php $view->error('isFeatured'); ?>
         
         <div class="form__control">
             <label for="thumbnail">Добавить картинку</label>
-            <input type="file" name="thumbnail" id="thumbnail">
+            <?php $view->inputAndError('thumbnail', type: 'file'); ?>
         </div>
-        <?php $view->errorInForm('thumbnail'); ?>
+        <?php $view->error('thumbnail'); ?>
 
-        <button type="submit" class="btn">Добавить пост</button>
+        <button type="submit" class="btn">Добавить</button>
     </form>
 </section>
 

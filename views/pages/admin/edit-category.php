@@ -9,13 +9,14 @@ $view->component('start');
 <section class="form__section container">
     <h2>Изменить категорию</h2>        
     <form method="post">
-        <input type="text" name="title" placeholder="Заголовок">       
-        <?php $view->errorInForm('title') ?>     
+        <?php
+        $view->inputAndError('title', 'Заголовок');
+        ?>             
 
-        <textarea name="desc" rows="4" placeholder="Описание"></textarea>
-        <?php $view->errorInForm('desc') ?>     
-        
-        <button type="submit" class="btn">Изменить категорию</button>
+        <textarea class="<?= $view->setInvalid('desc') ?>" name="desc" rows="4" placeholder="Описание"></textarea>
+        <?php $view->error('desc'); ?>        
+
+        <button type="submit" class="btn">Изменить</button>
     </form>
 </section>
 

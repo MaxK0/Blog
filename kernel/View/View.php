@@ -38,13 +38,26 @@ class View {
         include_once $componentPath;
     }
 
-    public function errorInForm(string $key): void {
+    public function setInvalid(string $key): string {
+        return $this->session->has($key) ? 'is-invalid' : '';
+    }
+
+    public function error(string $key): void {
         if ($this->session->has($key)) {
             $errors = $this->session->getFlash($key);
             foreach ($errors as $error) {
                 echo "<small class='form__error'>$error</small>";
             }
         }
+    }
+
+    public function input(string $name, string $placeholder = '', string $type = "text"): void {
+        echo "<input class='{$this->setInvalid($name)}' type='$type' name='$name' placeholder='$placeholder'>";
+    }    
+
+    public function inputAndError(string $name, string $placeholder = '', string $type = "text"): void {
+        $this->input($name, $placeholder, $type);
+        $this->error($name);
     }
 
 }

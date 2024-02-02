@@ -131,6 +131,9 @@ a {
     color: var(--color-red);
     margin-top: -1rem;
 }
+.is-invalid {
+    border: 0.15rem solid var(--color-red);
+}
 
 form {
     display: flex;

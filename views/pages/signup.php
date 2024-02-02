@@ -13,29 +13,20 @@ $view->component('start');
         <p>Сообщение об ошибке</p>
     </div> -->
     <form method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Имя">
-        <?php $view->errorInForm('name'); ?>
-
-        <input type="text" name="surname" placeholder="Фамилия">
-        <?php $view->errorInForm('surname'); ?>
-
-        <input type="text" name="nick" placeholder="Никнейм">
-        <?php $view->errorInForm('nick'); ?>
-
-        <input type="text" name="email" placeholder="Эл. почта">
-        <?php $view->errorInForm('email'); ?>
-
-        <input type="text" name="password" placeholder="Пароль">
-        <?php $view->errorInForm('password'); ?>
-
-        <input type="text" name="passwordRepeat" placeholder="Повтор пароля">
-        <?php $view->errorInForm('passwordRepeat'); ?>
+        <?php 
+        $view->inputAndError('name', 'Имя'); 
+        $view->inputAndError('surname', 'Фамилия'); 
+        $view->inputAndError('nick', 'Ник'); 
+        $view->inputAndError('email', 'Email'); 
+        $view->inputAndError('password', 'Пароль'); 
+        $view->inputAndError('passwordRepeat', 'Повтор пароля'); 
+        ?>
         
         <div class="form__control">
             <label for="avatar">Аватар</label>
-            <input type="file" name="avatar" id="avatar">
+            <?php $view->input('avatar', 'Аватар', 'file'); ?>
         </div>
-        <?php $view->errorInForm('avatar'); ?>
+        <?php $view->error('avatar'); ?>
 
         <button type="submit" class="btn">Зарегистрироваться</button>
         <small class="link_to_sign">Уже есть аккаунт? <a href="/signin">Войти</a></small>
