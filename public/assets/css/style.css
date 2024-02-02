@@ -93,11 +93,21 @@ a {
 
 /* <================================ Основная форма ================================> */
 .form__section {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     width: var(--form-width);
+}
+
+.link_to_sign {
+    margin-top: 1rem;
+    display: block;
+}
+
+.link_to_sign a {
+    color: var(--color-main);
 }
 
 .alert__message {
@@ -117,6 +127,11 @@ a {
     text-align: center;
 }
 
+.form__error {
+    color: var(--color-red);
+    margin-top: -1rem;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -134,16 +149,6 @@ input, textarea, select {
     border-radius: var(--card-border-radius-2);
     resize: none;
     color: var(--color-white);
-}
-
-.form__section small {
-    margin-top: 1rem;
-    display: block;
-}
-
-.form__section small a {
-    color: var(--color-main);
-
 }
 
 .form__control.inline {

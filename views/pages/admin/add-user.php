@@ -7,25 +7,38 @@ $view->component('start');
 ?>
 
 <section class="form__section container">
-    <h2>Добавить пользователя</h2>
-    <div class="alert__message error">
-        <p>Сообщение об ошибке</p>
-    </div>
+    <h2>Добавить пользователя</h2>    
     <form method="post" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Имя">
+        <?php $view->errorInForm('name'); ?>
+
         <input type="text" name="surname" placeholder="Фамилия">
+        <?php $view->errorInForm('surname'); ?>
+
         <input type="text" name="nick" placeholder="Никнейм">
+        <?php $view->errorInForm('nick'); ?>
+
         <input type="text" name="email" placeholder="Эл. почта">
+        <?php $view->errorInForm('email'); ?>
+
         <input type="text" name="password" placeholder="Пароль">
+        <?php $view->errorInForm('password'); ?>
+
         <input type="text" name="passwordRepeat" placeholder="Повтор пароля">
+        <?php $view->errorInForm('passwordRepeat'); ?>
+
         <select name="isAdmin">
             <option value="0">Автор</option>
             <option value="1">Админ</option>
         </select>
+        <?php $view->errorInForm('isAdmin'); ?>
+
         <div class="form__control">
             <label for="avatar">Аватар</label>
             <input type="file" name="avatar" id="avatar">
         </div>
+        <?php $view->errorInForm('avatar'); ?>
+        
         <button type="submit" class="btn">Добавить пользователя</button>
     </form>
 </section>
