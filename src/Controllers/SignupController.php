@@ -29,8 +29,12 @@ class SignupController extends Controller {
     public function signup(): void {
         $validate = $this->request()->validate(
             [
-                'name' => ['required', 'min:3'],
-                'surname' => ['required']
+                'name' => ['required', 'min:2', 'max:45'],
+                'surname' => ['required', 'min:2', 'max:45'],
+                'nick' => ['required', 'unique:users', 'min:2', 'max:45'],
+                'email' => ['email', 'unique:users', 'max:100'],
+                'password' => ['required', 'min:6', 'max:45'],
+                'passwordRepeat' => ['required', 'passwordRepeat']
             ]
         );
 
@@ -40,6 +44,7 @@ class SignupController extends Controller {
             }
 
             $this->redirect('/signup');
+
         };
 
     }

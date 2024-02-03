@@ -37,7 +37,7 @@ class Database implements IDatabase {
     }
 
 
-    function insert(string $table, array $data): int|false
+    public function insert(string $table, array $data): int|false
     {
         $fields = array_keys($data);
 
@@ -54,8 +54,17 @@ class Database implements IDatabase {
             return false;
         }
 
-        return (int) $this->pdo->lastInsertId();
-        
+        return (int) $this->pdo->lastInsertId();        
+    }
+
+    public function isExist(string $table, string $key, mixed $data): bool {
+        $sql = "SELECT * FROM $table WHERE $key = '$data'";
+        $query = $this->pdo->query($sql);
+        $result = $query->fetch();
+        // $stmt = $this->pdo->prepare($sql);
+        // $result = $stmt->execute('')
+        if ($result) return true;
+        return false;
     }
 
 }

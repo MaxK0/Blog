@@ -2,10 +2,17 @@
 
 namespace App\Kernel\Validator;
 
+use App\Kernel\Database\IDatabase;
+
 class Validator implements IValidator {
 
     private array $errors = [];
     private array $data;
+    private IDatabase $database;    
+
+    public function setDatabase(IDatabase $database): void {
+        $this->database = $database;
+    }
 
     public function validate(array $data, array $rules): bool {
         $this->errors = [];
@@ -52,8 +59,12 @@ class Validator implements IValidator {
                 if (!filter_var($value, FILTER_VALIDATE_EMAIL)) return "Поле должно содержать правильный email адрес";
                 break;
             case 'unique':
-                $model = new $ruleValue();                
-                if ($model->where($key, $value)->first()) return "Уже существует";
+                if ($this->database->isExist($ruleValue, $key, $value)) return "Уже существует";
+                // $model = new $ruleValue();                
+                // if ($model->where($key, $value)->first()) return "Уже существует";
+                // break;
+            case 'passwordRepeat':
+                if ($value !== $this->data['password']) return "Пароли не совпадают";
                 break;
         }
 
