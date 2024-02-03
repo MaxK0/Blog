@@ -57,13 +57,18 @@ class Database implements IDatabase {
         return (int) $this->pdo->lastInsertId();        
     }
 
-    public function isExist(string $table, string $key, mixed $data): bool {
-        $sql = "SELECT * FROM $table WHERE $key = '$data'";
-        $query = $this->pdo->query($sql);
-        $result = $query->fetch();
-        // $stmt = $this->pdo->prepare($sql);
-        // $result = $stmt->execute('')
-        if ($result) return true;
+    public function isExist(string $table, string $key, mixed $value): bool {        
+        $sql = "SELECT * FROM $table WHERE $key = :$key";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(":$key", $value);        
+        
+        try {
+            $stmt->execute();
+        } catch (\PDOException $exception) {
+            echo $exception->getMessage();
+        }
+
+        if ($stmt->rowCount() > 0) return true;
         return false;
     }
 
