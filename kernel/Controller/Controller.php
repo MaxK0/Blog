@@ -2,6 +2,7 @@
 
 namespace App\Kernel\Controller;
 
+use App\Kernel\Database\IDatabase;
 use App\Kernel\View\IView;
 use App\Kernel\Http\IRequest;
 use App\Kernel\Http\IRedirect;
@@ -13,6 +14,7 @@ abstract class Controller {
     private IRequest $request;
     private IRedirect $redirect;
     private ISession $session;
+    private IDatabase $database;
 
     public function view(string $name): void {
         $this->view->page($name);
@@ -44,6 +46,14 @@ abstract class Controller {
 
     public function setSession(ISession $session): void {
         $this->session = $session;
+    }
+
+    public function db(): IDatabase {
+        return $this->database;
+    }
+
+    public function setDatabase(IDatabase $database): void {
+        $this->database = $database;
     }
 
 }

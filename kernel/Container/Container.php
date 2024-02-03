@@ -2,12 +2,16 @@
 
 namespace App\Kernel\Container;
 
+use App\Kernel\Config\IConfig;
 use App\Kernel\Http\IRedirect;
 use App\Kernel\Http\IRequest;
 use App\Kernel\Router\IRouter;
 use App\Kernel\Session\ISession;
 use App\Kernel\View\IView;
 use App\Kernel\Validator\IValidator;
+use App\Kernel\Config\Config;
+use App\Kernel\Database\Database;
+use App\Kernel\Database\IDatabase;
 use App\Kernel\Http\Redirect;
 use App\Kernel\Http\Request;
 use App\Kernel\Router\Router;
@@ -22,6 +26,8 @@ class Container {
     public readonly IValidator $validator;
     public readonly IRedirect $redirect;
     public readonly ISession $session;
+    public readonly IConfig $config;
+    public readonly IDatabase $database;
 
     public function __construct()
     {
@@ -35,6 +41,8 @@ class Container {
         $this->redirect = new Redirect();
         $this->session = new Session();
         $this->view = new View($this->session);
-        $this->router = new Router($this->view, $this->request, $this->redirect, $this->session);
+        $this->config = new Config();
+        $this->database = new Database($this->config);
+        $this->router = new Router($this->view, $this->request, $this->redirect, $this->session, $this->database);
     }
 }
