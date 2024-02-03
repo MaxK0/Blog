@@ -3,12 +3,12 @@
 namespace App\Kernel\View;
 
 use App\Kernel\Exceptions\ViewNotFoundException;
-use App\Kernel\Session\Session;
+use App\Kernel\Session\ISession;
 
-class View {
+class View implements IView {
 
     public function __construct(
-        private Session $session
+        private ISession $session
     )
     {        
     }

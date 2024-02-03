@@ -1,7 +1,7 @@
 <?php
 /**
- * @var \App\Kernel\View\View $view
- * @var \App\Kernel\Session\Session $session
+ * @var \App\Kernel\View\IView $view
+ * @var \App\Kernel\Session\ISession $session
  */
 
 $view->component('start');

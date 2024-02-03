@@ -2,11 +2,11 @@
 
 namespace App\Kernel\Http;
 
-use App\Kernel\Validator\Validator;
+use App\Kernel\Validator\IValidator;
 
-class Request {
+class Request implements IRequest {
 
-    private Validator $validator;
+    private IValidator $validator;
 
     public function __construct(
         public readonly array $get,
@@ -34,7 +34,7 @@ class Request {
         return $this->post[$key] ?? $this->get[$key] ?? $default;
     }
 
-    public function setvalidator(Validator $validator): void {
+    public function setvalidator(IValidator $validator): void {
         $this->validator = $validator;
     }
 

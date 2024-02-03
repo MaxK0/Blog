@@ -2,6 +2,12 @@
 
 namespace App\Kernel\Container;
 
+use App\Kernel\Http\IRedirect;
+use App\Kernel\Http\IRequest;
+use App\Kernel\Router\IRouter;
+use App\Kernel\Session\ISession;
+use App\Kernel\View\IView;
+use App\Kernel\Validator\IValidator;
 use App\Kernel\Http\Redirect;
 use App\Kernel\Http\Request;
 use App\Kernel\Router\Router;
@@ -10,12 +16,12 @@ use App\Kernel\View\View;
 use App\Kernel\Validator\Validator;
 
 class Container {
-    public readonly Request $request;
-    public readonly Router $router;
-    public readonly View $view;
-    public readonly Validator $validator;
-    public readonly Redirect $redirect;
-    public readonly Session $session;
+    public readonly IRequest $request;
+    public readonly IRouter $router;
+    public readonly IView $view;
+    public readonly IValidator $validator;
+    public readonly IRedirect $redirect;
+    public readonly ISession $session;
 
     public function __construct()
     {

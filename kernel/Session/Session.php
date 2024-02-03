@@ -2,7 +2,7 @@
 
 namespace App\Kernel\Session;
 
-class Session {
+class Session implements ISession {
 
     public function __construct()
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \App\Kernel\View\View $view
+ * @var \App\Kernel\View\IView $view
  */
 
 $view->component('start');

@@ -3,15 +3,15 @@
 namespace App\Kernel\Router;
 
 use App\Kernel\Controller\Controller;
-use App\Kernel\Http\Redirect;
-use App\Kernel\Http\Request;
-use App\Kernel\Session\Session;
-use App\Kernel\View\View;
+use App\Kernel\Http\IRedirect;
+use App\Kernel\Http\IRequest;
+use App\Kernel\Session\ISession;
+use App\Kernel\View\IView;
 
 /**
  * Класс, который отвечает за маршрутизацию
  */
-class Router {
+class Router implements IRouter {
 
     private array $routes = [
         'GET' => [],
@@ -19,10 +19,10 @@ class Router {
     ];
 
     public function __construct(
-        private View $view,
-        private Request $request,
-        private Redirect $redirect,
-        private Session $session
+        private IView $view,
+        private IRequest $request,
+        private IRedirect $redirect,
+        private ISession $session
         ) {
         $this->initRoutes();
     }

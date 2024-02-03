@@ -27,13 +27,21 @@ class SignupController extends Controller {
     }
     
     public function signup(): void {
-        $error = $this->request()->validate(
-            ['name' => ['required', 'min:3']]
+        $validate = $this->request()->validate(
+            [
+                'name' => ['required', 'min:3'],
+                'surname' => ['required']
+            ]
         );
 
-        if (!$error) dd($this->request()->errors());
+        if (!$validate) {
+            foreach ($this->request()->errors() as $field => $error) {
+                $this->session()->set($field, $error);
+            }
 
-        dd('Ок');
+            $this->redirect('/signup');
+        };
+
     }
 
 }
