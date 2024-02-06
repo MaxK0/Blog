@@ -11,7 +11,10 @@ class SigninController extends Controller {
     }
 
     public function signin(): void {
-        
+        $email = $this->request()->input('login');
+        $password = $this->request()->input('password');
+
+        dd($this->auth()->attempt($email, $password), $_SESSION);
     }
 
 } 

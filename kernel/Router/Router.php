@@ -2,6 +2,7 @@
 
 namespace App\Kernel\Router;
 
+use App\Kernel\Auth\IAuth;
 use App\Kernel\Controller\Controller;
 use App\Kernel\Database\IDatabase;
 use App\Kernel\Http\IRedirect;
@@ -24,7 +25,8 @@ class Router implements IRouter {
         private IRequest $request,
         private IRedirect $redirect,
         private ISession $session,
-        private IDatabase $database
+        private IDatabase $database,
+        private IAuth $auth,
         ) {
         $this->initRoutes();
     }
@@ -45,6 +47,7 @@ class Router implements IRouter {
             call_user_func([$controller, 'setRedirect'], $this->redirect);
             call_user_func([$controller, 'setSession'], $this->session);
             call_user_func([$controller, 'setDatabase'], $this->database);
+            call_user_func([$controller, 'setAuth'], $this->auth);
 
             call_user_func([$controller, $action]);
         }

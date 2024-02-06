@@ -2,6 +2,8 @@
 
 namespace App\Kernel\Container;
 
+use App\Kernel\Auth\Auth;
+use App\Kernel\Auth\IAuth;
 use App\Kernel\Config\IConfig;
 use App\Kernel\Http\IRedirect;
 use App\Kernel\Http\IRequest;
@@ -28,6 +30,7 @@ class Container {
     public readonly ISession $session;
     public readonly IConfig $config;
     public readonly IDatabase $database;
+    public readonly IAuth $auth;
 
     public function __construct()
     {
@@ -42,7 +45,8 @@ class Container {
         $this->request->setValidator($this->validator);
         $this->redirect = new Redirect();
         $this->session = new Session();
+        $this->auth = new Auth($this->database, $this->session, $this->config);
         $this->view = new View($this->session);
-        $this->router = new Router($this->view, $this->request, $this->redirect, $this->session, $this->database);
+        $this->router = new Router($this->view, $this->request, $this->redirect, $this->session, $this->database, $this->auth);
     }
 }

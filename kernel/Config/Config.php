@@ -4,7 +4,7 @@ namespace App\Kernel\Config;
 
 class Config implements IConfig {
 
-    function get(string $key, mixed $default = null): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
         [$file, $key] = explode('.', $key);
 
