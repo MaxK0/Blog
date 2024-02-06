@@ -8,5 +8,6 @@ interface IDatabase {
 
     public function isExist(string $table, string $key, mixed $data): bool;
     
+    public function first(string $table, array $conditions = []): ?array; 
 
 }
