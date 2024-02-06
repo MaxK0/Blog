@@ -47,6 +47,15 @@ class SignupController extends Controller {
 
         };
 
+        $uesrId = $this->db()->insert('users', [
+            'name' => $this->request()->input('name'),
+            'surname' => $this->request()->input('surname'),
+            'nick' => $this->request()->input('nick'),
+            'email' => $this->request()->input('email'),
+            'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
+            'is_admin' => 0
+        ]);
+
     }
 
 }
