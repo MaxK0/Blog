@@ -30,39 +30,51 @@ class Auth implements IAuth
             return false;
         }
 
-        $this->session->set($this->sessionField(), $user['user_id']);
+        $this->session->set($this->sessionField(), $user[$this->tableId()]);
 
         return true;
     }
 
-    public function logout(): void
-    {
-    }
-
-    public function user(): ?array
-    {
-    }
-
     public function check(): bool
     {
+        return $this->session->has($this->sessionField());
     }
+    
+    public function user(): ?array
+    {
+        if (!$this->check()) return null;
+        
+        return $this->db->first($this->table(), [
+            $this->tableId() => $this->session->get($this->sessionField()),
+        ]);
+    }    
 
-    public function table(): string
+    public function logout(): void
+    {
+        $this->session->remove($this->sessionField());
+    }
+    
+    private function table(): string
     {
         return $this->config->get('auth.table', 'users');
     }
 
-    public function username(): string
+    private function tableId(): string
+    {
+        return $this->config->get('auth.table_id', 'user_id');
+    }
+
+    private function username(): string
     {
         return $this->config->get('auth.username', 'email');
     }
 
-    public function password(): string
+    private function password(): string
     {
         return $this->config->get('auth.password', 'password');
     }
 
-    public function sessionField(): string
+    private function sessionField(): string
     {
         return $this->config->get('auth.session_field', 'user_id');
     }
