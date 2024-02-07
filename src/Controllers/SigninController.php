@@ -14,7 +14,7 @@ class SigninController extends Controller {
         $email = $this->request()->input('login');
         $password = $this->request()->input('password');
 
-        dd($this->auth()->attempt($email, $password), $_SESSION);
+        $this->auth()->attempt($email, $password);
     }
 
 } 

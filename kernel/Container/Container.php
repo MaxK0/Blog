@@ -46,7 +46,7 @@ class Container {
         $this->redirect = new Redirect();
         $this->session = new Session();
         $this->auth = new Auth($this->database, $this->session, $this->config);
-        $this->view = new View($this->session);
+        $this->view = new View($this->session, $this->auth);
         $this->router = new Router($this->view, $this->request, $this->redirect, $this->session, $this->database, $this->auth);
     }
 }

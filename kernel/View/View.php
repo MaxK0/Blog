@@ -2,13 +2,15 @@
 
 namespace App\Kernel\View;
 
+use App\Kernel\Auth\IAuth;
 use App\Kernel\Exceptions\ViewNotFoundException;
 use App\Kernel\Session\ISession;
 
 class View implements IView {
 
     public function __construct(
-        private ISession $session
+        private ISession $session,
+        private IAuth $auth,
     )
     {        
     }
@@ -20,7 +22,7 @@ class View implements IView {
             throw new ViewNotFoundException("Представление $name не было найдено");
         }
 
-        extract(['view' => $this, 'session' => $this->session]);        
+        extract(['view' => $this, 'session' => $this->session, 'auth' => $this->auth]);        
 
         include_once $viewPath;
     }
@@ -33,7 +35,7 @@ class View implements IView {
             return;
         }
 
-        extract(['view' => $this, 'session' => $this->session]);
+        extract(['view' => $this, 'session' => $this->session, 'auth' => $this->auth]);
 
         include_once $componentPath;
     }
