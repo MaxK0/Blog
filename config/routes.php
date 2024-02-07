@@ -26,6 +26,7 @@ return [
     Route::post('/signup', [SignupController::class, 'signup']),
     Route::get('/signin', [SigninController::class, 'index']),
     Route::post('/signin', [SigninController::class, 'signin']),
+    Route::get('/logout', [SigninController::class, 'logout']),
 
     Route::get('/about', [InformationController::class, 'about']),
     Route::get('/contacts', [InformationController::class, 'contact']),
