@@ -10,6 +10,6 @@ interface IAuth {
 
     public function check(): bool;
 
-    public function user(): ?array;
+    public function user(): ?User;
 
 }
