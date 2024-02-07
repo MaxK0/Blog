@@ -10,6 +10,7 @@ use App\Controllers\CategoryController;
 use App\Controllers\PostController;
 use App\Controllers\InformationController;
 use App\Kernel\Router\Route;
+use App\Middleware\AuthMiddleware;
 
 // [Controller::class, 'index'] - массив с адресом до класса и названием метода для вызова
 // Controller::class - адрес до класса
@@ -33,7 +34,7 @@ return [
     Route::get('/services', [InformationController::class, 'services']),
 
     Route::get('/post', [PostController::class, 'index']),
-    Route::get('/post/add', [PostController::class, 'add']),
+    Route::get('/post/add', [PostController::class, 'add'], [AuthMiddleware::class]),
     Route::post('/post/add', [PostController::class, 'store']),
     Route::get('/post/edit', [PostController::class, 'edit']),
     Route::post('/post/edit', [PostController::class, 'store']),
