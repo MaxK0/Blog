@@ -52,7 +52,12 @@ class Auth implements IAuth
             return new User(
                 $user[$this->tableId()],
                 $user[$this->username()],
-                $user[$this->password()]
+                $user[$this->password()],
+                $user['nick'],
+                $user['name'],
+                $user['surname'],
+                $user['is_admin'],
+                $user['avatar']
             );
         }
 
