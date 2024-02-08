@@ -7,7 +7,7 @@ use App\Kernel\Controller\Controller;
 class AdminController extends Controller {
 
     public function index(): void {
-        $this->view('admin/dashboard-admin');
+        $this->view('admin/manage-posts-admin');
     }
 
 }
