@@ -1,6 +1,5 @@
 <?php
 /** @var \App\Kernel\Auth\IAuth $auth */
-$user = $auth->user();
 ?>
 
 <header>  
