@@ -27,14 +27,14 @@ class UploadedFile implements IUploadedFile {
         $filePath = "$storagePath/$fileName";
 
         if (move_uploaded_file($this->tmpName, $filePath)) {
-            return "$path/$fileName ";
+            return "$path/$fileName";
         } 
 
         return false;
     }
 
     private function randomFileName() {
-        return md5(uniqid(rand(), true)) . ".{$this->getExtension()} ";
+        return md5(uniqid(rand(), true)) . ".{$this->getExtension()}";
     }
 
     public function getExtension(): string

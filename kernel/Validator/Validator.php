@@ -3,6 +3,7 @@
 namespace App\Kernel\Validator;
 
 use App\Kernel\Database\IDatabase;
+use App\Kernel\Upload\IUploadedFile;
 
 class Validator implements IValidator {
 
@@ -10,7 +11,7 @@ class Validator implements IValidator {
     private array $data;
 
     public function __construct(
-        private IDatabase $database
+        private IDatabase $database,
     ) {}
 
     public function validate(array $data, array $rules): bool {
@@ -62,6 +63,10 @@ class Validator implements IValidator {
                 break;
             case 'passwordRepeat':
                 if ($value !== $this->data['password']) return "Пароли не совпадают";
+                break;
+            case 'fileSize':                
+                $sizeMb = $value->size / 1024 / 1024;                
+                if ($sizeMb > $ruleValue) return "Размер файла должен быть меньше $ruleValue мб";
                 break;
         }
 

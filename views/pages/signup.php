@@ -24,7 +24,7 @@ $view->component('start');
         
         <div class="form__control">
             <label for="avatar">Аватар</label>
-            <?php $view->input('avatar', 'Аватар', 'file'); ?>
+            <?php $view->inputAndError('avatar', 'Аватар', 'file') ?>
         </div>
         <?php $view->error('avatar'); ?>
 

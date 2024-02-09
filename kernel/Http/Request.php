@@ -63,7 +63,7 @@ class Request implements IRequest
         $data = [];
 
         foreach ($rules as $field => $rule) {
-            $data[$field] = $this->input($field);
+            $data[$field] = $this->input($field) ?? $this->file($field);
         }
 
         return $this->validator->validate($data, $rules);

@@ -27,6 +27,8 @@ class SignupController extends Controller {
     }
     
     public function signup(): void {
+
+
         $validate = $this->request()->validate(
             [
                 'name' => ['required', 'min:2', 'max:45'],
@@ -34,7 +36,8 @@ class SignupController extends Controller {
                 'nick' => ['required', 'unique:users', 'min:2', 'max:45'],
                 'email' => ['email', 'unique:users', 'max:100'],
                 'password' => ['required', 'min:6', 'max:45'],
-                'passwordRepeat' => ['required', 'passwordRepeat']
+                'passwordRepeat' => ['required', 'passwordRepeat'],
+                'avatar' => ['fileSize:3']
             ]
         );
 
@@ -44,7 +47,6 @@ class SignupController extends Controller {
             }
 
             $this->redirect('/signup');
-
         };
 
         $uesrId = $this->db()->insert('users', [
@@ -53,8 +55,11 @@ class SignupController extends Controller {
             'nick' => $this->request()->input('nick'),
             'email' => $this->request()->input('email'),
             'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
-            'is_admin' => 0
+            'is_admin' => 0,
+            'avatar' => $this->request()->file('avatar')->move('avatars') ?? null
         ]);
+
+        $this->redirect('/home');
 
     }
 
