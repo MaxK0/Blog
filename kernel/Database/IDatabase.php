@@ -10,4 +10,6 @@ interface IDatabase {
     
     public function first(string $table, array $conditions = []): ?array; 
 
+    public function update(string $table, array $values, array $conditions): bool;
+
 }

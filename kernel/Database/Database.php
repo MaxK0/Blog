@@ -91,4 +91,26 @@ class Database implements IDatabase {
         return $result ?: null;
     }
 
+    public function update(string $table, array $values, array $conditions): bool
+    {
+        $set = "SET " . implode(', ', array_map(fn ($field) => "$field = :$field", array_keys($values)));
+        $where = 'WHERE ' . implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
+
+        $sql = "UPDATE $table $set $where";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $params = array_merge($values, $conditions);
+
+        try {
+            $stmt->execute($params);
+        } catch (\PDOException $exception) {
+            return false;
+        }
+
+        return true;
+
+
+    }
+
 }
