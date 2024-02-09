@@ -20,7 +20,17 @@ $user = $auth->user();
             <button class="close__nav-btn"></button>
             <div class="nav__profile">
                 <div class="avatar">
-                    <img src="/assets/img/avatars/avatar1.png" alt="Аватар">
+                    <?php if ($auth->check()) {
+                        if (!empty($auth->user()->avatarPath())) { ?>
+                            <img src="/storage/<?= $auth->user()->avatarPath() ?>" alt="Аватар">
+                        <?php }
+                        else { ?>
+                            <img src="/assets/img/avatars/avatar1.png" alt="Аватар">
+                        <?php } 
+                    }
+                    else { ?>
+                        <img src="/assets/img/avatars/avatar1.png" alt="Аватар">
+                    <?php } ?>
                 </div>
                 <ul>
                     <?php if (!$auth->check()) { ?>
