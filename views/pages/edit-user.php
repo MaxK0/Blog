@@ -7,15 +7,15 @@ $view->component('start');
 ?>
 
 <section class="form__section container">
-    <h2>Добавить пользователя</h2>    
+    <h2>Изменить пользователя</h2>    
     <form method="post" enctype="multipart/form-data">
         <?php 
         $view->inputAndError('name', 'Имя'); 
         $view->inputAndError('surname', 'Фамилия'); 
         $view->inputAndError('nick', 'Ник'); 
         $view->inputAndError('email', 'Email'); 
-        $view->inputAndError('password', 'Пароль'); 
-        $view->inputAndError('passwordRepeat', 'Повтор пароля'); 
+        $view->inputAndError('password', 'Пароль', 'password'); 
+        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password'); 
         ?>
         
         <div class="form__control">

@@ -11,7 +11,7 @@ $view->component('start');
     <form method="post">
         <?php
         $view->inputAndError('login', 'Никнейм или эл. почта');
-        $view->inputAndError('password', 'Пароль');
+        $view->inputAndError('password', 'Пароль', 'password');
         ?>       
 
         <button type="submit" class="btn">Войти</button>

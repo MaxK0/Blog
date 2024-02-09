@@ -14,8 +14,8 @@ $view->component('start');
         $view->inputAndError('surname', 'Фамилия'); 
         $view->inputAndError('nick', 'Ник'); 
         $view->inputAndError('email', 'Email'); 
-        $view->inputAndError('password', 'Пароль'); 
-        $view->inputAndError('passwordRepeat', 'Повтор пароля'); 
+        $view->inputAndError('password', 'Пароль', 'password'); 
+        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password'); 
         ?>
 
         <select name="isAdmin">
