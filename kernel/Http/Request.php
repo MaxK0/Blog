@@ -51,7 +51,7 @@ class Request implements IRequest
 
     public function file(string $key): ?IUploadedFile
     {
-        if (!isset($this->files[$key])) return null;
+        if (empty($this->files[$key]['name'])) return null;
 
         return new UploadedFile(
             $this->files[$key]['name'],

@@ -1,8 +1,9 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var \App\Kernel\Auth\IAuth $auth
  */
-
+$user = $auth->user();
 $view->component('start');
 ?>
 
@@ -10,10 +11,16 @@ $view->component('start');
     <h2>Изменить пользователя</h2>    
     <form method="post" enctype="multipart/form-data">
         <?php 
-        $view->inputAndError('name', 'Имя'); 
-        $view->inputAndError('surname', 'Фамилия'); 
-        $view->inputAndError('nick', 'Ник'); 
-        $view->inputAndError('email', 'Email'); 
+
+        $name = $user->name();
+        $surname = $user->surname();
+        $nick = $user->nick();
+        $email = $user->email();
+
+        $view->inputAndError('name', 'Имя', value: $name); 
+        $view->inputAndError('surname', 'Фамилия', value: $surname); 
+        $view->inputAndError('nick', 'Ник', value: $nick); 
+        $view->inputAndError('email', 'Email', value: $email); 
         $view->inputAndError('password', 'Пароль', 'password'); 
         $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password'); 
         ?>

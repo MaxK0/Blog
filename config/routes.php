@@ -55,9 +55,9 @@ return [
     Route::get('/admin/dashboard/categories', [CategoryController::class, 'manage'], [AdminMiddleware::class]),
 
     Route::get('/user/edit', [SignupController::class, 'edit'], [AuthMiddleware::class]),
-    Route::post('/user/edit', [SignupController::class, 'signup'], [AuthMiddleware::class]),
+    Route::post('/user/edit', [SignupController::class, 'editUser'], [AuthMiddleware::class]),
     Route::get('/admin/user/edit', [SignupController::class, 'editByAdmin'], [AdminMiddleware::class]),
-    Route::post('/admin/user/edit', [SignupController::class, 'signup'], [AdminMiddleware::class]),
+    Route::post('/admin/user/edit', [SignupController::class, 'editUser'], [AdminMiddleware::class]),
     Route::get('/admin/user/add', [SignupController::class, 'add'], [AdminMiddleware::class]),
     Route::post('/admin/user/add', [SignupController::class, 'signup'], [AdminMiddleware::class]),
 

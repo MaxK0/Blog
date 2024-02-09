@@ -14,12 +14,12 @@ $view->component('start');
     </div> -->
     <form method="post" enctype="multipart/form-data">
         <?php 
-        $view->inputAndError('name', 'Имя'); 
-        $view->inputAndError('surname', 'Фамилия'); 
-        $view->inputAndError('nick', 'Ник'); 
-        $view->inputAndError('email', 'Email'); 
-        $view->inputAndError('password', 'Пароль', 'password'); 
-        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password'); 
+        $view->inputAndError('name', 'Имя', value: 'old'); 
+        $view->inputAndError('surname', 'Фамилия', value: 'old'); 
+        $view->inputAndError('nick', 'Ник', value: 'old'); 
+        $view->inputAndError('email', 'Email', value: 'old'); 
+        $view->inputAndError('password', 'Пароль', 'password', value: 'old'); 
+        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password', value: 'old'); 
         ?>
         
         <div class="form__control">

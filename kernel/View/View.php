@@ -53,12 +53,13 @@ class View implements IView {
         }
     }
 
-    public function input(string $name, string $placeholder = '', string $type = "text"): void {
-        echo "<input class='{$this->setInvalid($name)}' type='$type' name='$name' placeholder='$placeholder' value='{$this->session->getFlash('old_' . $name, '')}'>";
+    public function input(string $name, string $placeholder = '', string $type = "text", string $value = ''): void {
+        if ($value == 'old') $value = $this->session->getFlash('old_' . $name, '');
+        echo "<input class='{$this->setInvalid($name)}' type='$type' name='$name' placeholder='$placeholder' value='$value'>";
     }
 
-    public function inputAndError(string $name, string $placeholder = '', string $type = "text"): void {
-        $this->input($name, $placeholder, $type);
+    public function inputAndError(string $name, string $placeholder = '', string $type = "text", string $value = ''): void {
+        $this->input($name, $placeholder, $type, $value);
         $this->error($name);
     }
 
