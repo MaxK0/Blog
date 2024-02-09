@@ -2,6 +2,7 @@
 
 namespace App\Kernel\Http;
 
+use App\Kernel\Session\ISession;
 use App\Kernel\Upload\IUploadedFile;
 use App\Kernel\Upload\UploadedFile;
 use App\Kernel\Validator\IValidator;
@@ -10,6 +11,7 @@ class Request implements IRequest
 {
 
     private IValidator $validator;
+    private ISession $session;
 
     public function __construct(
         public readonly array $get,
@@ -25,6 +27,11 @@ class Request implements IRequest
         return new static($_GET, $_POST, $_SERVER, $_FILES, $_COOKIE);
     }
 
+    public function setSession(ISession $session): void
+    {
+        $this->session = $session;
+    }
+
     public function uri(): string
     {
         return strtok($this->server['REQUEST_URI'], '?');
@@ -37,7 +44,9 @@ class Request implements IRequest
 
     public function input(string $key, mixed $default = null): mixed
     {
-        return $this->post[$key] ?? $this->get[$key] ?? $default;
+        $value = $this->post[$key] ?? $this->get[$key] ?? $default;
+        $this->session->set("old_$key", $value);
+        return $value;
     }
 
     public function file(string $key): ?IUploadedFile

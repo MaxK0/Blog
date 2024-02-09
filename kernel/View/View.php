@@ -54,8 +54,8 @@ class View implements IView {
     }
 
     public function input(string $name, string $placeholder = '', string $type = "text"): void {
-        echo "<input class='{$this->setInvalid($name)}' type='$type' name='$name' placeholder='$placeholder'>";
-    }    
+        echo "<input class='{$this->setInvalid($name)}' type='$type' name='$name' placeholder='$placeholder' value='{$this->session->getFlash('old_' . $name, '')}'>";
+    }
 
     public function inputAndError(string $name, string $placeholder = '', string $type = "text"): void {
         $this->input($name, $placeholder, $type);
