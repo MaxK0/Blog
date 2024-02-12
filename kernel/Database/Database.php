@@ -4,18 +4,19 @@ namespace App\Kernel\Database;
 
 use App\Kernel\Config\IConfig;
 
-class Database implements IDatabase {
+class Database implements IDatabase
+{
 
     private \PDO $pdo;
 
     public function __construct(
         private IConfig $config
-    )
-    {
+    ) {
         $this->connect();
     }
 
-    private function connect(): void {
+    private function connect(): void
+    {
         $driver = $this->config->get('database.driver');
         $host = $this->config->get('database.host');
         $port = $this->config->get('database.port');
@@ -33,7 +34,6 @@ class Database implements IDatabase {
         } catch (\PDOException $exception) {
             exit("Соединение с базой данной провалено {$exception->getMessage()}");
         }
-        
     }
 
 
@@ -54,14 +54,34 @@ class Database implements IDatabase {
             return false;
         }
 
-        return (int) $this->pdo->lastInsertId();        
+        return (int) $this->pdo->lastInsertId();
     }
 
-    public function isExist(string $table, string $key, mixed $value): bool {        
+    public function get(string $table, array $conditions = [], array $order = [], int $limit = -1): array
+    {
+        $where = '';
+
+        if (count($conditions) > 0) $where = 'WHERE ' . implode('AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions))); 
+
+        $sql = "SELECT * FROM $table $where";
+
+        if (count($order) > 0) $sql . ' ORDER BY ' . implode(', ', array_map(fn ($field, $direction) => "$field $direction", array_keys($order), $order));
+
+        if ($limit > 0) $sql . " LIMIT $limit";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute($conditions);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function isExist(string $table, string $key, mixed $value): bool
+    {
         $sql = "SELECT * FROM $table WHERE $key = :$key";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(":$key", $value);        
-        
+        $stmt->bindValue(":$key", $value);
+
         try {
             $stmt->execute();
         } catch (\PDOException $exception) {
@@ -78,14 +98,14 @@ class Database implements IDatabase {
 
         if (count($conditions) > 0) {
             $where = 'WHERE ' . implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
-        }         
+        }
 
         $sql = "SELECT * FROM $table $where LIMIT 1";
 
         $stmt = $this->pdo->prepare($sql);
 
-        $stmt->execute($conditions);        
-        
+        $stmt->execute($conditions);
+
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $result ?: null;
@@ -109,8 +129,5 @@ class Database implements IDatabase {
         }
 
         return true;
-
-
     }
-
 }
