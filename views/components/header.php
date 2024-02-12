@@ -40,7 +40,7 @@
                         <li><a href="/signup">Зарегистрироваться</a></li>
                     <?php } ?>
                     <?php if ($auth->check()) { ?>
-                        <li><a href="/dashboard">Панель</a></li>
+                        <li><a href="<?= $user->isAdmin() ? '/admin/dashboard' : '/dashboard' ?>">Панель</a></li>
                         <li><a href="/user/edit">Изменить данные</a></li>
                     <?php } ?>
                     <li><a href="/logout">Выйти</a></li>
