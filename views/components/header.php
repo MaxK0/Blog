@@ -1,5 +1,8 @@
 <?php
-/** @var \App\Kernel\Auth\IAuth $auth */
+/** @var \App\Kernel\Auth\IAuth $auth
+ * @var \App\Kernel\Auth\User $user
+ * @var \App\Kernel\Storage\Storage $storage
+ */
 ?>
 
 <header>  
@@ -20,8 +23,8 @@
             <div class="nav__profile">
                 <div class="avatar">
                     <?php if ($auth->check()) {
-                        if (!empty($auth->user()->avatarPath())) { ?>
-                            <img src="/storage/<?= $auth->user()->avatarPath() ?>" alt="Аватар">
+                        if (!empty($user->avatarPath())) { ?>
+                            <img src="<?= $storage->url($user->avatarPath()) ?>" alt="Аватар">
                         <?php }
                         else { ?>
                             <img src="/assets/img/avatars/avatar1.png" alt="Аватар">

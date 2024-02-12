@@ -18,6 +18,8 @@ use App\Kernel\Http\Redirect;
 use App\Kernel\Http\Request;
 use App\Kernel\Router\Router;
 use App\Kernel\Session\Session;
+use App\Kernel\Storage\IStorage;
+use App\Kernel\Storage\Storage;
 use App\Kernel\View\View;
 use App\Kernel\Validator\Validator;
 
@@ -31,6 +33,7 @@ class Container {
     public readonly IConfig $config;
     public readonly IDatabase $database;
     public readonly IAuth $auth;
+    public readonly IStorage $storage;
 
     public function __construct()
     {
@@ -42,12 +45,13 @@ class Container {
         $this->redirect = new Redirect();
         $this->config = new Config();
         $this->session = new Session();
-        $this->request->setSession($this->session);
+        $this->storage = new Storage($this->config);
+        $this->request->setSession($this->session);        
         $this->database = new Database($this->config);
         $this->auth = new Auth($this->database, $this->session, $this->config);
         $this->validator = new Validator($this->database, $this->auth);
         $this->request->setValidator($this->validator);
-        $this->view = new View($this->session, $this->auth);
+        $this->view = new View($this->session, $this->auth, $this->storage)     ;
         $this->router = new Router($this->view, $this->request, $this->redirect, $this->session, $this->database, $this->auth);
     }
 }
