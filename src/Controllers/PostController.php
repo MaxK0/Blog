@@ -3,10 +3,12 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
-use DateTime;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
+
+    private PostService $service;
 
     public function index(): void
     {
@@ -28,7 +30,8 @@ class PostController extends Controller
         $validate = $this->request()->validate([
             'title' => ['required', 'min:2', 'max:255'],
             'category' => ['required'],
-            'text' => ['required']
+            'text' => ['required'],
+            'thumbnail' => ['required', 'fileSize:5']
         ]);
 
         if (!$validate) {
@@ -39,19 +42,17 @@ class PostController extends Controller
             $this->redirect('/post/add');
         }
 
-        $post = $this->db()->insert('posts', [
-            'title' => $this->request()->input('title'),
-            'body' => $this->request()->input('text'),
-            'thumbnail' => $this->request()->file('thumbnail')->move('posts'),
-            'date_time' => date_format(new \DateTime(), 'Y-m-d h:i:s'),
-            'is_featured' => 0,
-            'author_id' => $this->auth()->user()->id()
-        ]);
+        $this->service = new PostService($this->db());
 
-        $this->db()->insert('posts_has_categories', [
-            'post_id' => $post,
-            'category_id' => $this->request()->input('category')
-        ]);
+        $title = $this->request()->input('title');
+        $body = $this->request()->input('text');
+        $thumbnail = $this->request()->file('thumbnail')->move('posts');
+        $dateTime = date_format(new \DateTime(), 'Y-m-d h:i:s');
+        $isFeatured = $this->request()->input('isFeatured', 0);
+        $authorId = $this->auth()->user()->id();
+        $categories = $this->request()->input('category');
+
+        $this->service->insert($title, $body, $thumbnail, $dateTime, $isFeatured, $authorId, [$categories]);
 
         $this->redirect('/home');
     }
