@@ -67,8 +67,9 @@ class Validator implements IValidator {
             case 'passwordRepeat':
                 if ($value !== $this->data['password']) return "Пароли не совпадают";
                 break;
-            case 'fileSize':                
-                $sizeMb = $value->size / 1024 / 1024;                
+            case 'fileSize':                                      
+                if (isset($value)) $sizeMb = $value->size / 1024 / 1024;    
+                else $sizeMb = -1;
                 if ($sizeMb > $ruleValue) return "Размер файла должен быть меньше $ruleValue мб";
                 break;
         }

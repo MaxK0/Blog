@@ -11,8 +11,9 @@ class Post
         private string $body,
         private string $thumbnail,
         private string $dateTime,
-        private bool $isFeatured,
-        private int $authorId
+        private int $isFeatured,
+        private int $authorId,
+        private array $categories
     ) {
     }
 
@@ -41,7 +42,7 @@ class Post
         return $this->dateTime;
     }
 
-    public function isFeatured(): bool
+    public function isFeatured(): int
     {
         return $this->isFeatured;
     }
@@ -49,5 +50,10 @@ class Post
     public function authorId(): int
     {
         return $this->authorId;
+    }
+
+    public function categories(): array
+    {
+        return $this->categories;
     }
 }

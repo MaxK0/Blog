@@ -15,9 +15,9 @@ $user = $auth->user();
         
         <select name="category">
             <option value="1">Еда</option>
-            <option value="2">Путешествие</option>
+            <option value="4">Путешествие</option>
             <option value="3">Искусство</option>
-            <option value="4">Наука & Технологии</option>
+            <option value="2">Наука & Технологии</option>
             <option value="5">Природа</option>
             <option value="6">Музыка</option>
         </select>            
@@ -29,8 +29,8 @@ $user = $auth->user();
         
         <?php if ($auth->check() && $user->isAdmin()) { ?>
             <div class="form__control inline">
-                <?php $view->inputAndError('isFeatured', type: 'checkbox'); ?>
-                <label for="is_featured">Избранное</label>
+                <?php $view->inputAndError('isFeatured', type: 'checkbox', value: '1'); ?>
+                <label for="isFeatured">Избранное</label>
             </div>
             <?php $view->error('isFeatured'); ?>
         <?php } ?>

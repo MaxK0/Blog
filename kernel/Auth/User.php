@@ -51,7 +51,7 @@ class User
         return $this->isAdmin;
     }
 
-    public function avatarPath(): string
+    public function avatarPath(): ?string
     {
         return $this->avatarPath;
     }   

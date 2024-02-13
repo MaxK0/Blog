@@ -45,6 +45,7 @@ class Request implements IRequest
     public function input(string $key, mixed $default = null): mixed
     {
         $value = $this->post[$key] ?? $this->get[$key] ?? $default;
+        if (empty($value)) $value = $default;
         $this->session->set("old_$key", $value);
         return $value;
     }

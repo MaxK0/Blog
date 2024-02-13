@@ -8,7 +8,7 @@ class Category
     public function __construct(
         private int $id,
         private string $title,
-        private string $description
+        private ?string $description
     ) {
     }
 
@@ -22,7 +22,7 @@ class Category
         return $this->title;
     }
 
-    public function description(): string
+    public function description(): ?string
     {
         return $this->description;
     }

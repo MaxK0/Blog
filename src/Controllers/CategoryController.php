@@ -3,9 +3,12 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
+
+    private CategoryService $service;
 
     public function index(): void
     {
@@ -39,14 +42,14 @@ class CategoryController extends Controller
                 $this->session()->set($name, $error);
             }
 
-            $this->redirect('/admin/category/add');
+            if ($this->request()->uri() == '/admin/category/add') $this->redirect('/admin/category/add');
+            else if ($this->request()->uri() == '/admin/category/edit') $this->redirect('/admin/category/edit');
         }
 
-        $this->db()->insert('categories', [
-            'title' => $this->request()->input('title'),
-            'description' => $this->request()->input('description') ?? null
-        ]);
+        $this->service = new CategoryService($this->db());
 
-        $this->redirect('/home');
+        $this->service->insert($this->request()->input('title'), $this->request()->input('desc') ?: null);
+
+        $this->redirect('/admin');
     }
 }
