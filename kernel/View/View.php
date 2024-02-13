@@ -10,6 +10,8 @@ use App\Kernel\Storage\IStorage;
 class View implements IView
 {
 
+    private string $title;
+
     public function __construct(
         private ISession $session,
         private IAuth $auth,
@@ -17,20 +19,22 @@ class View implements IView
     ) {
     }
 
-    public function page(string $name): void
+    public function page(string $name, array $data = [], string $title = 'Blog'): void
     {
+        $this->title = $title;
+
         $viewPath = APP_PATH . "/views/pages/$name.php";
 
         if (!file_exists($viewPath)) {
             throw new ViewNotFoundException("Представление $name не было найдено");
         }
 
-        extract($this->defaultData());
+        extract(array_merge($this->defaultData(), $data));
 
         include_once $viewPath;
     }
 
-    public function component(string $name): void
+    public function component(string $name, array $data = []): void
     {
         $componentPath = APP_PATH . "/views/components/$name.php";
 
@@ -39,7 +43,7 @@ class View implements IView
             return;
         }
 
-        extract($this->defaultData());
+        extract(array_merge($this->defaultData(), $data));
 
         include_once $componentPath;
     }
@@ -80,5 +84,10 @@ class View implements IView
     {
         $this->input($name, $placeholder, $type, $value);
         $this->error($name);
+    }
+
+    public function title(): string
+    {
+        return $this->title;
     }
 }
