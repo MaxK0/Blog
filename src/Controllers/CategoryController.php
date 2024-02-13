@@ -10,6 +10,11 @@ class CategoryController extends Controller
 
     private CategoryService $service;
 
+    public function __construct()
+    {
+        $this->service = new CategoryService($this->db());
+    }
+
     public function index(): void
     {
         $this->view('category-posts');
@@ -45,8 +50,6 @@ class CategoryController extends Controller
             if ($this->request()->uri() == '/admin/category/add') $this->redirect('/admin/category/add');
             else if ($this->request()->uri() == '/admin/category/edit') $this->redirect('/admin/category/edit');
         }
-
-        $this->service = new CategoryService($this->db());
 
         $this->service->insert($this->request()->input('title'), $this->request()->input('desc') ?: null);
 

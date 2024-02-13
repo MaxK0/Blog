@@ -3,21 +3,29 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Services\CategoryService;
 use App\Services\PostService;
 
 class PostController extends Controller
 {
 
     private PostService $service;
+    private CategoryService $categoryService;
+
+    public function __construct()
+    {
+        
+    }
 
     public function index(): void
-    {
+    {        
         $this->view('post');
     }
 
     public function add(): void
-    {
-        $this->view('add-post');
+    {        
+        $this->categoryService = new CategoryService($this->db());
+        $this->view('add-post', ['categories' => $this->categoryService->all()]);
     }
 
     public function edit(): void

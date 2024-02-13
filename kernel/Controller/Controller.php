@@ -18,8 +18,8 @@ abstract class Controller {
     private IDatabase $database;
     private IAuth $auth;
 
-    public function view(string $name): void {
-        $this->view->page($name);
+    public function view(string $name, array $data = [], string $title = 'Blog'): void {
+        $this->view->page($name, $data, $title);
     }
 
     public function setView(IView $view): void {

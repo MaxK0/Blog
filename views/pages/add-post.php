@@ -3,9 +3,10 @@
  * @var \App\Kernel\View\IView $view
  * @var \App\Kernel\Auth\IAuth $auth
  * @var \App\Kernel\Session\Session $session
+ * @var array<\App\Models\Category> $categories
  */
+
 $view->component('start');
-$user = $auth->user();
 ?>
 
 <section class="form__section container">
@@ -14,12 +15,9 @@ $user = $auth->user();
         <?php $view->inputAndError('title', 'Заголовок', value: 'old'); ?>        
         
         <select name="category">
-            <option value="1">Еда</option>
-            <option value="4">Путешествие</option>
-            <option value="3">Искусство</option>
-            <option value="2">Наука & Технологии</option>
-            <option value="5">Природа</option>
-            <option value="6">Музыка</option>
+            <?php foreach ($categories as $category) { ?>
+                <option value="<?= $category->id() ?>"><?= $category->title() ?></option>
+            <?php } ?>            
         </select>            
         <?php $view->error('category'); ?>
         
