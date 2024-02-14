@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\Kernel\View\IView $view
  * @var \App\Kernel\Session\ISession $session
@@ -9,19 +10,19 @@ $view->component('start');
 
 <section class="form__section container">
     <h2>Регистрация</h2>
-    <!-- <div class="alert__message access">
-        <p>Сообщение об ошибке</p>
-    </div> -->
+
     <form method="post" enctype="multipart/form-data">
-        <?php 
-        $view->inputAndError('name', 'Имя', value: 'old'); 
-        $view->inputAndError('surname', 'Фамилия', value: 'old'); 
-        $view->inputAndError('nick', 'Ник', value: 'old'); 
-        $view->inputAndError('email', 'Email', value: 'old'); 
-        $view->inputAndError('password', 'Пароль', 'password', value: 'old'); 
-        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password', value: 'old'); 
-        ?>
+        <?php
+
+        $view->inputAndError('name', 'Имя');
+        $view->inputAndError('surname', 'Фамилия');
+        $view->inputAndError('nick', 'Ник');
+        $view->inputAndError('email', 'Email');
+        $view->inputAndError('password', 'Пароль', 'password');
+        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password');
         
+        ?>
+
         <div class="form__control">
             <label for="avatar">Аватар</label>
             <?php $view->inputAndError('avatar', 'Аватар', 'file') ?>

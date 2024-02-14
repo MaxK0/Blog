@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Kernel\Auth\User;
+
 class Post
 {
 
@@ -12,7 +14,7 @@ class Post
         private string $thumbnail,
         private string $dateTime,
         private int $isFeatured,
-        private int $authorId,
+        private array $author, // TODO: Сделать как User
         private array $categories
     ) {
     }
@@ -47,9 +49,9 @@ class Post
         return $this->isFeatured;
     }
 
-    public function authorId(): int
+    public function author(): array
     {
-        return $this->authorId;
+        return $this->author;
     }
 
     public function categories(): array

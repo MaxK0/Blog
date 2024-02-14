@@ -12,9 +12,9 @@ interface IView {
 
     public function error(string $key): void;
 
-    public function input(string $name, string $placeholder = '', string $type = "text", string $value = ''): void;
+    public function input(string $name, string $placeholder = '', string $type = "text", string $value = 'old'): void;
 
-    public function inputAndError(string $name, string $placeholder = '', string $type = "text", string $value = ''): void;
+    public function inputAndError(string $name, string $placeholder = '', string $type = "text", string $value = 'old'): void;
     
     public function title(): string;
 
