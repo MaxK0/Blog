@@ -20,9 +20,9 @@ $view->component('start');
             </div>
             <div class="post__info">
                 <?php foreach ($post->categories() as $category) { ?>
-                    <a class="category__button" href="/category?<?= $category->id() ?>"><?= $category->title() ?></a>
+                    <a class="category__button" href="/category?id=<?= $category->id() ?>"><?= $category->title() ?></a>
                 <?php } ?>
-                <h2 class="post__title"><a href="/post?<?= $post->id() ?>"><?= $post->title() ?></a></h2>
+                <h2 class="post__title"><a href="/post?id=<?= $post->id() ?>"><?= $post->title() ?></a></h2>
                 <p class="post__body"><?= mb_strimwidth($post->body(), 0, 40, trim_marker: '...') ?></p>
                 <div class="post__author">
                     <div class="post__author-avatar">
@@ -66,9 +66,9 @@ $view->component('start');
             </div>
             <div class="post__info">
                 <?php foreach ($post->categories() as $category) { ?>
-                    <a class="category__button" href="/category?<?= $category->id() ?>"><?= $category->title() ?></a>
+                    <a class="category__button" href="/category?id=<?= $category->id() ?>"><?= $category->title() ?></a>
                 <?php } ?>
-                <h2 class="post__title"><a href="/post?<?= $post->id() ?>"><?= $post->title() ?></a></h2>
+                <h2 class="post__title"><a href="/post?id=<?= $post->id() ?>"><?= $post->title() ?></a></h2>
                 <p class="post__body"><?= mb_strimwidth($post->body(), 0, 40, trim_marker: '...') ?></p>
                 <div class="post__author">
                     <div class="post__author-avatar">
