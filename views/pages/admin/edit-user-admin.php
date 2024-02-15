@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var \App\Kernel\Auth\User $userEdit
  */
 
 $view->component('start');
@@ -10,17 +11,17 @@ $view->component('start');
     <h2>Изменить пользователя</h2>        
     <form method="post" enctype="multipart/form-data">
         <?php 
-        $view->inputAndError('name', 'Имя'); 
-        $view->inputAndError('surname', 'Фамилия'); 
-        $view->inputAndError('nick', 'Ник'); 
-        $view->inputAndError('email', 'Email'); 
+        $view->inputAndError('name', 'Имя', value: $userEdit->name()); 
+        $view->inputAndError('surname', 'Фамилия', value: $userEdit->surname()); 
+        $view->inputAndError('nick', 'Ник', value: $userEdit->nick()); 
+        $view->inputAndError('email', 'Email', value: $userEdit->email()); 
         $view->inputAndError('password', 'Пароль', 'password'); 
         $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password'); 
         ?>
 
         <select name="isAdmin">
-            <option value="0">Автор</option>
-            <option value="1">Админ</option>
+            <option value="0" selected>Автор</option>
+            <option value="1" <?= $userEdit->isAdmin() ? 'selected' : '' ?>>Админ</option>
         </select>
         <?php $view->error('isAdmin'); ?>
 

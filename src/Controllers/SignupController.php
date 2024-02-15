@@ -16,13 +16,17 @@ class SignupController extends Controller
     }
 
     public function edit(): void
-    {
-        $this->view('edit-user');
+    {      
+        $this->view('edit-user', );
     }
 
     public function editByAdmin(): void
     {
-        $this->view('admin/edit-user-admin');
+        $this->userService = new UserService($this->db());
+
+        $user = $this->userService->find($this->request()->input('id'));
+
+        $this->view('admin/edit-user-admin', ['userEdit' => $user]);
     }
 
     public function add(): void
