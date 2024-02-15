@@ -14,4 +14,6 @@ interface IDatabase {
 
     public function update(string $table, array $values, array $conditions): bool;
 
+    public function delete(string $table, array $conditions = []): bool;
+
 }

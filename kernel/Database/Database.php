@@ -130,4 +130,24 @@ class Database implements IDatabase
 
         return true;
     }
+
+    public function delete(string $table, array $conditions = []): bool
+    {
+        $where = '';
+        
+        if (!empty($conditions)) 
+            $where = 'WHERE ' . implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions)));
+
+        $sql = "DELETE FROM $table $where";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        try {
+            $stmt->execute($conditions);
+        } catch (\PDOException $exception) {
+            return false;
+        }
+
+        return true;
+    }
 }
