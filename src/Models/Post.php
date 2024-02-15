@@ -14,7 +14,7 @@ class Post
         private string $thumbnail,
         private string $dateTime,
         private int $isFeatured,
-        private array $author, // TODO: Сделать как User
+        private User $author,
         private array $categories
     ) {
     }
@@ -49,7 +49,7 @@ class Post
         return $this->isFeatured;
     }
 
-    public function author(): array
+    public function author(): User
     {
         return $this->author;
     }

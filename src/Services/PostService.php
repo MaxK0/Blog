@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Kernel\Database\IDatabase;
 use App\Models\Post;
 use App\Services\CategoryService;
+use App\Services\UserService;
 use App\Kernel\Auth\User;
 
 class PostService
@@ -23,17 +24,17 @@ class PostService
         $posts = $this->db->get('posts');
 
         $categoryService = new CategoryService($this->db);
+        $userService = new UserService($this->db);
 
         $categories = $categoryService->all();
-        
-        return array_map(function ($post) use ($categories) {
+
+        return array_map(function ($post) use ($categories, $userService) {
 
             $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
             $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
 
-            $author = $this->db->get('users', ['user_id' => $post['author_id']], limit: 1)[0]; // TODO: Сделать как User
-            
+            $author = $userService->find($post['author_id']);          
 
             return new Post(
                 id: $post['post_id'],
@@ -42,13 +43,15 @@ class PostService
                 thumbnail: $post['thumbnail'],
                 dateTime: $post['date_time'],
                 isFeatured: $post['is_featured'],
-                author: ['id' => $author['user_id'], 'name' => $author['name'], 'surname' => $author['surname'], 'avatar' => $author['avatar']],
+                author: $author,
                 categories: array_map(function ($category) use ($categoriesDbId) {
                     if (in_array($category->id(), $categoriesDbId)) return $category;
                 }, $categories)
             );
         }, $posts);
     }
+
+    
 
     public function insert(string $title, string $body, string $thumbnail, string $dateTime, int $isFeatured, int $authorId, array $categories)
     {
