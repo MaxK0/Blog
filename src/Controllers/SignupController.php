@@ -16,8 +16,8 @@ class SignupController extends Controller
     }
 
     public function edit(): void
-    {      
-        $this->view('edit-user', );
+    {
+        $this->view('edit-user',);
     }
 
     public function editByAdmin(): void
@@ -29,17 +29,27 @@ class SignupController extends Controller
         $this->view('admin/edit-user-admin', ['userEdit' => $user]);
     }
 
-    public function add(): void
-    {
-        $this->view('admin/add-user');
-    }
-
     public function manage(): void
     {
         $this->userService = new UserService($this->db());
 
         $this->view('admin/manage-users', ['users' => $this->userService->all()]);
     }
+
+    public function add(): void
+    {
+        $this->view('admin/add-user');
+    }
+
+    public function delete(): void
+    {
+        $this->userService = new UserService($this->db());
+
+        $this->userService->delete($this->request()->input('id'));
+
+        $this->redirect('/admin/dashboard/users');
+    }
+
 
     public function signup(): void
     {

@@ -60,5 +60,6 @@ return [
     Route::post('/admin/user/edit', [SignupController::class, 'editUser'], [AdminMiddleware::class]),
     Route::get('/admin/user/add', [SignupController::class, 'add'], [AdminMiddleware::class]),
     Route::post('/admin/user/add', [SignupController::class, 'signup'], [AdminMiddleware::class]),
+    Route::get('/admin/user/delete', [SignupController::class, 'delete'], [AdminMiddleware::class])
 
 ];

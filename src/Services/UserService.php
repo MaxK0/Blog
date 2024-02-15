@@ -46,4 +46,9 @@ class UserService
             avatarPath: $user['avatar']
         );
     }
+
+    public function delete(int $id): bool
+    {
+        return $this->db->delete('users', ['user_id' => $id]);
+    }
 }
