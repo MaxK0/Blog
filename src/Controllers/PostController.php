@@ -9,7 +9,7 @@ use App\Services\PostService;
 class PostController extends Controller
 {
 
-    private PostService $service;
+    private PostService $postService;
     private CategoryService $categoryService;
 
     public function __construct()
@@ -19,7 +19,11 @@ class PostController extends Controller
 
     public function index(): void
     {        
-        $this->view('post');
+        $this->postService = new PostService($this->db());
+
+        $post = $this->postService->find($this->request()->input('id'));
+
+        $this->view('post', ['post' => $post]);
     }
 
     public function add(): void
@@ -50,7 +54,7 @@ class PostController extends Controller
             $this->redirect('/post/add');
         }
 
-        $this->service = new PostService($this->db());
+        $this->postService = new PostService($this->db());
 
         $title = $this->request()->input('title');
         $body = $this->request()->input('text');
@@ -60,7 +64,7 @@ class PostController extends Controller
         $authorId = $this->auth()->user()->id();
         $categories = $this->request()->input('category');
 
-        $this->service->insert($title, $body, $thumbnail, $dateTime, $isFeatured, $authorId, [$categories]);
+        $this->postService->insert($title, $body, $thumbnail, $dateTime, $isFeatured, $authorId, [$categories]);
 
         $this->redirect('/home');
     }

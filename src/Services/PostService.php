@@ -51,7 +51,33 @@ class PostService
         }, $posts);
     }
 
-    
+    public function find(int $id): Post
+    {
+        $post = $this->db->first('posts', ['post_id' => $id]);
+
+        $userService = new UserService($this->db);
+        $author = $userService->find($post['post_id']);
+
+        $categoryService = new CategoryService($this->db);
+        $categories = $categoryService->all();
+
+        $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
+
+        $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
+
+        return new Post(
+            id: $post['post_id'],
+            title: $post['title'],
+            body: $post['body'],
+            thumbnail: $post['thumbnail'],
+            dateTime: $post['date_time'],
+            isFeatured: $post['is_featured'],
+            author: $author,
+            categories: array_map(function ($category) use ($categoriesDbId) {
+                if (in_array($category->id(), $categoriesDbId)) return $category;
+            }, $categories)
+        );
+    }
 
     public function insert(string $title, string $body, string $thumbnail, string $dateTime, int $isFeatured, int $authorId, array $categories)
     {
