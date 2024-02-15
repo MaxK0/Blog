@@ -3,9 +3,12 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Services\UserService;
 
 class SignupController extends Controller
 {
+
+    private UserService $userService;
 
     public function index(): void
     {
@@ -29,7 +32,9 @@ class SignupController extends Controller
 
     public function manage(): void
     {
-        $this->view('admin/manage-users');
+        $this->userService = new UserService($this->db());
+
+        $this->view('admin/manage-users', ['users' => $this->userService->all()]);
     }
 
     public function signup(): void
@@ -51,7 +56,8 @@ class SignupController extends Controller
                 $this->session()->set($field, $error);
             }
 
-            $this->redirect('/signup');
+            if ($this->request()->uri() == '/signup') $this->redirect('/signup');
+            else if ($this->request()->uri() == '/admin/user/add') $this->redirect('/admin/user/add');
         };
 
         $avatar = null;
@@ -64,7 +70,7 @@ class SignupController extends Controller
             'nick' => $this->request()->input('nick'),
             'email' => $this->request()->input('email'),
             'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
-            'is_admin' => 0,
+            'is_admin' => $this->request()->input('isAdmin', 0),
             'avatar' => $avatar
         ]);
 

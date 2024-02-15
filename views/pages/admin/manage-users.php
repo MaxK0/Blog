@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var array<\App\Kernel\Auth\User> $users
  */
 
 $view->component('start');
@@ -65,13 +66,15 @@ $view->component('start');
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach ($users as $user) { ?>
                     <tr>
-                        <td>Иван Иванов</td>
-                        <td>ivan123</td>
-                        <td><a href="/admin/user/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/admin/user/delete" class="btn sm danger">Удалить</a></td>
-                        <td>Да</td>
-                    </tr>                        
+                        <td><?= $user->surname() . ' ' . $user->name() ?></td>
+                        <td><?= $user->nick() ?></td>
+                        <td><a href="/admin/user/edit?id=<?= $user->id() ?>" class="btn sm">Редактировать</a></td>
+                        <td><a href="/admin/user/delete?id=<?= $user->id() ?>" class="btn sm danger">Удалить</a></td>
+                        <td><?= $user->isAdmin() ? 'Да' : 'Нет' ?></td>
+                    </tr>    
+                    <?php } ?>                    
                 </tbody>
             </table>
         </main>
