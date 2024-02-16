@@ -13,7 +13,8 @@ $view->component('start');
 <!-- <========================== Рекомендация ==========================> -->
 <section class="featured container">
 
-    <?php foreach ($posts as $post) { // TODO: Можно оптимизировать, путем вынесения рекомендуемого поста в отдельную модель или по другому, на этапе функции all
+    <?php foreach ($posts as $post) { 
+        $text = explode("\r\n", $post->body());
         if ($post->isFeatured()) { ?>
             <div class="post__thumbnail">
                 <img src="<?= $storage->url($post->thumbnail()) ?>" alt="Фото для блога">
@@ -23,7 +24,9 @@ $view->component('start');
                     <a class="category__button" href="/category?id=<?= $category->id() ?>"><?= $category->title() ?></a>
                 <?php } ?>
                 <h2 class="post__title"><a href="/post?id=<?= $post->id() ?>"><?= $post->title() ?></a></h2>
-                <p class="post__body"><?= mb_strimwidth($post->body(), 0, 40, trim_marker: '...') ?></p>
+                
+                <p class="post__body"><?= mb_strimwidth($text[0], 0, 400, trim_marker: '...') ?></p>
+                
                 <div class="post__author">
                     <div class="post__author-avatar">
                         <?php if (!empty($post->author()->avatarPath())) { ?>
@@ -38,6 +41,7 @@ $view->component('start');
                     </div>
                 </div>
             </div>
+            <?php break; ?>
     <?php }
     } ?>
 </section>
@@ -59,7 +63,9 @@ $view->component('start');
 <section class="posts container">
     <?php
 
-    foreach ($posts as $post) { ?>
+    foreach ($posts as $post) { 
+        $text = explode("\r\n", $post->body());
+        ?>
         <article class="post">
             <div class="post__thumbnail">
                 <img src="<?= $storage->url($post->thumbnail()) ?>" alt="Фото для блога">
@@ -69,7 +75,7 @@ $view->component('start');
                     <a class="category__button" href="/category?id=<?= $category->id() ?>"><?= $category->title() ?></a>
                 <?php } ?>
                 <h2 class="post__title"><a href="/post?id=<?= $post->id() ?>"><?= $post->title() ?></a></h2>
-                <p class="post__body"><?= mb_strimwidth($post->body(), 0, 40, trim_marker: '...') ?></p>
+                <p class="post__body"><?= mb_strimwidth($text[0], 0, 400, trim_marker: '...') ?></p>
                 <div class="post__author">
                     <div class="post__author-avatar">
                         <?php if (!empty($post->author()->avatarPath())) { ?>

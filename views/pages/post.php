@@ -6,6 +6,8 @@
  */
 
 $view->component('start');
+
+$text = explode("\r\n", $post->body());
 ?>
 
 <section class="singlepost container">
@@ -27,9 +29,11 @@ $view->component('start');
         <img src="<?= $storage->url($post->thumbnail()) ?>" alt="Пост">
     </div>
     <div class="singlepost__text">
+        <?php foreach ($text as $p) { ?>
         <p>
-            <?= $post->body() ?>
+            <?= $p ?>
         </p>                 
+        <?php } ?>
     </div>
 </section>
 

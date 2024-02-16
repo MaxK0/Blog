@@ -16,10 +16,12 @@ class CategoryController extends Controller
     public function index(): void
     {
         $this->postService = new PostService($this->db());
+        $this->categoryService = new CategoryService($this->db());
 
         $posts = $this->postService->findByCategory($this->request()->input('id'));
+        $category = $this->categoryService->find($this->request()->input('id'));
 
-        $this->view('category-posts', ['posts' => $posts]);
+        $this->view('category-posts', ['posts' => $posts, 'category' => $category]);
     }
 
     public function manage(): void

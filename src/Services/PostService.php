@@ -32,9 +32,13 @@ class PostService
 
             $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-            $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);            
+            $categoriesDbId = array_column($categoriesDb, 'category_id');            
 
             $author = $userService->find($post['author_id']);
+
+            $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
+                if (in_array($category->id(), $categoriesDbId)) return $category;
+            });
 
             return new Post(
                 id: $post['post_id'],
@@ -44,9 +48,7 @@ class PostService
                 dateTime: $post['date_time'],
                 isFeatured: $post['is_featured'],
                 author: $author,
-                categories: array_map(function ($category) use ($categoriesDbId) {
-                    if (in_array($category->id(), $categoriesDbId)) return $category;
-                }, $categories)
+                categories: $postCategories
             );
         }, $posts);
     }
@@ -56,14 +58,18 @@ class PostService
         $post = $this->db->first('posts', ['post_id' => $id]);
 
         $userService = new UserService($this->db);
-        $author = $userService->find($post['post_id']);
+        $author = $userService->find($post['author_id']);
 
         $categoryService = new CategoryService($this->db);
         $categories = $categoryService->all();
 
         $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-        $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
+        $categoriesDbId = array_column($categoriesDb, 'category_id'); 
+
+        $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
+            if (in_array($category->id(), $categoriesDbId)) return $category;
+        });
 
         return new Post(
             id: $post['post_id'],
@@ -73,9 +79,7 @@ class PostService
             dateTime: $post['date_time'],
             isFeatured: $post['is_featured'],
             author: $author,
-            categories: array_map(function ($category) use ($categoriesDbId) {
-                if (in_array($category->id(), $categoriesDbId)) return $category;
-            }, $categories)
+            categories: $postCategories
         );
     }
 
@@ -101,9 +105,13 @@ class PostService
 
             $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-            $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
-
             $author = $userService->find($post['author_id']);
+
+            $categoriesDbId = array_column($categoriesDb, 'category_id'); 
+
+            $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
+                if (in_array($category->id(), $categoriesDbId)) return $category;
+            });
 
             if (in_array($id, $categoriesDbId)) { 
                 return new Post(
@@ -114,9 +122,7 @@ class PostService
                     dateTime: $post['date_time'],
                     isFeatured: $post['is_featured'],
                     author: $author,
-                    categories: array_map(function ($category) use ($categoriesDbId) {
-                        if (in_array($category->id(), $categoriesDbId)) return $category;
-                    }, $categories)
+                    categories: $postCategories
                 );
             }
         }, $posts);

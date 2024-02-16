@@ -33,7 +33,7 @@ class UserService
 
     public function find(int $id): User
     {
-        $user = $this->db->get('users', ['user_id' => $id])[0];
+        $user = $this->db->first('users', ['user_id' => $id]);
 
         return new User(
             id: $user['user_id'],

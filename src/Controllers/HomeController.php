@@ -11,8 +11,6 @@ class HomeController extends Controller {
 
     public function index(): void {  
         $this->postService = new PostService($this->db());
-
-        dd($this->postService->all());
         
         $this->view('home', ['posts' => $this->postService->all()]);
     }
