@@ -35,6 +35,10 @@ class PostController extends Controller
     {
         $this->postService = new PostService($this->db());
 
+        if (!$this->auth()->user()->isAdmin()) {
+            if ($this->auth()->user()->id() != $this->request()->input('id')) $this->redirect('/dashboard');
+        }
+
         $post = $this->postService->find($this->request()->input('id'));
 
         $this->view('edit-post', ['post' => $post]);
