@@ -17,7 +17,7 @@ class SignupController extends Controller
 
     public function edit(): void
     {
-        $this->view('edit-user',);
+        $this->view('edit-user');
     }
 
     public function editByAdmin(): void
@@ -53,79 +53,94 @@ class SignupController extends Controller
 
     public function signup(): void
     {
-        $validate = $this->request()->validate(
-            [
-                'name' => ['required', 'min:2', 'max:45'],
-                'surname' => ['required', 'min:2', 'max:45'],
-                'nick' => ['required', 'unique:users', 'min:2', 'max:45'],
-                'email' => ['email', 'unique:users', 'max:100'],
-                'password' => ['required', 'min:6', 'max:45'],
-                'passwordRepeat' => ['required', 'passwordRepeat'],
-                'avatar' => ['fileSize:3']
-            ]
-        );
+        $this->userValidate(['/signup', '/admin/user/add']);
 
-        if (!$validate) {
-            foreach ($this->request()->errors() as $field => $error) {
-                $this->session()->set($field, $error);
-            }
-
-            if ($this->request()->uri() == '/signup') $this->redirect('/signup');
-            else if ($this->request()->uri() == '/admin/user/add') $this->redirect('/admin/user/add');
-        };
-
+        $name = $this->request()->input('name');
+        $surname = $this->request()->input('surname');
+        $nick = $this->request()->input('nick');
+        $email = $this->request()->input('email');
+        $password = password_hash($this->request()->input('password'), PASSWORD_DEFAULT);
+        $isAdmin = $this->request()->input('isAdmin', 0);
         $avatar = null;
 
-        if (!empty($this->request()->file('avatar'))) $avatar = $this->request()->file('avatar')->move('avatars');
+        if (!empty($this->request()->file('avatar'))) $avatar = $this->request()->file('avatar')->move('avatars');        
 
-        $uesrId = $this->db()->insert('users', [
-            'name' => $this->request()->input('name'),
-            'surname' => $this->request()->input('surname'),
-            'nick' => $this->request()->input('nick'),
-            'email' => $this->request()->input('email'),
-            'password' => password_hash($this->request()->input('password'), PASSWORD_DEFAULT),
-            'is_admin' => $this->request()->input('isAdmin', 0),
-            'avatar' => $avatar
-        ]);
+        $this->userService->insert($name, $surname, $nick, $email, $password, $isAdmin, $avatar);
 
         $this->redirect('/home');
     }
 
     public function editUser(): void
     {
-        $validate = $this->request()->validate(
-            [
-                'name' => ['required', 'min:2', 'max:45'],
-                'surname' => ['required', 'min:2', 'max:45'],
-                'nick' => ['required', 'unique:users', 'min:2', 'max:45'],
-                'email' => ['email', 'unique:users', 'max:100'],
-                'password' => ['min:6', 'max:45'],
-                'passwordRepeat' => ['passwordRepeat'],
-                'avatar' => ['fileSize:3']
-            ]
-        );
+        $this->userValidate(['/user/edit'], true);
+
+        $id = $this->auth()->user()->id();
+        $name = $this->request()->input('name');
+        $surname = $this->request()->input('surname');
+        $nick = $this->request()->input('nick');
+        $email = $this->request()->input('email');
+        $isAdmin = $this->request()->input('isAdmin', 0);
+        $password = $this->request()->input('password');
+        $avatar = null;
+
+        if (!empty($this->request()->file('avatar'))) $avatar = $this->request()->file('avatar')->move('avatars');
+        if (!empty($password)) password_hash($password, PASSWORD_DEFAULT);
+
+        $this->userService->update($id, $name, $surname, $nick, $email, $password, $avatar, $isAdmin);
+
+        $this->redirect('/home');
+    }
+
+    public function editUserByAdmin(): void
+    {
+        $this->userValidate(["/admin/user/edit?id={$this->request()->input('id')}"], true);
+
+        $id = $this->request()->input('id');
+        $name = $this->request()->input('name');
+        $surname = $this->request()->input('surname');
+        $nick = $this->request()->input('nick');
+        $email = $this->request()->input('email');
+        $isAdmin = $this->request()->input('isAdmin', 0);
+        $password = $this->request()->input('password');
+        $avatar = null;
+
+        if (!empty($this->request()->file('avatar'))) $avatar = $this->request()->file('avatar')->move('avatars');
+        if (!empty($password)) $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $this->userService->update($id, $name, $surname, $nick, $email, $password, $avatar, $isAdmin);
+
+        $this->redirect('/admin/dashboard/users');
+    }
+
+    private function userValidate(array $redirectPaths, bool $isEdit = false): void
+    {
+        $id = $this->request()->input('id', 0);
+        $data = [
+            'name' => ['required', 'min:2', 'max:45'],
+            'surname' => ['required', 'min:2', 'max:45'],
+            'nick' => ['required', "unique:users:user_id:$id", 'min:2', 'max:45'],
+            'email' => ['email', "unique:users:user_id:$id", 'max:100'],
+            'password' => ['min:6', 'max:45'],
+            'passwordRepeat' => ['passwordRepeat'],
+            'avatar' => ['fileSize:3']
+        ];
+
+        if (!$isEdit) {
+            $data['password'][] = 'required';
+        }
+
+        $validate = $this->request()->validate($data);
 
         if (!$validate) {
             foreach ($this->request()->errors() as $field => $error) {
                 $this->session()->set($field, $error);
             }
 
-            $this->redirect('/user/edit');
+            foreach ($redirectPaths as $path) {
+                if ($this->request()->uri() == strtok($path, '?')) $this->redirect($path);
+            }
         };
 
-        $values = [
-            'name' => $this->request()->input('name'),
-            'surname' => $this->request()->input('surname'),
-            'nick' => $this->request()->input('nick'),
-            'email' => $this->request()->input('email'),
-        ];
-
-        $conditions = ['user_id' => $this->auth()->user()->id()];
-
-        if (!empty($this->request()->input('password'))) $values['password'] = $this->request()->input('password');
-        if (!empty($this->request()->file('avatar'))) $values['avatar'] = $this->request()->file('avatar')->move('avatars');
-
-        $this->db()->update('users', $values, $conditions);
-        $this->redirect('/home');
+        $this->userService = new UserService($this->db());
     }
 }

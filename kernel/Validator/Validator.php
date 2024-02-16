@@ -28,8 +28,10 @@ class Validator implements IValidator {
 
                 $ruleName = $rule[0];
                 $ruleValue = $rule[1] ?? null;
+                $ruleNameId = $rule[2] ?? null;
+                $ruleId = $rule[3] ?? null;
 
-                $error = $this->validateRule($key, $ruleName, $ruleValue);
+                $error = $this->validateRule($key, $ruleName, $ruleValue, $ruleNameId, $ruleId);
                 
                 if ($error) {
                     $this->errors[$key][] = $error;
@@ -44,7 +46,7 @@ class Validator implements IValidator {
         return $this->errors;
     }
 
-    private function validateRule(string $key, string $ruleName, string $ruleValue = null): string|bool {
+    private function validateRule(string $key, string $ruleName, string $ruleValue = null, string $ruleNameId = null, int $ruleIdRow = null): string|bool {
         $value = $this->data[$key];
         
         switch ($ruleName) {
@@ -62,7 +64,7 @@ class Validator implements IValidator {
                 break;
             case 'unique':
                 $existingRow = $this->database->first($ruleValue, [$key => $value]);
-                if (!empty($existingRow) && $existingRow[$key] != $this->auth->user()->$key()) return "Уже существует";
+                if (!empty($existingRow) && $existingRow[$ruleNameId] != $ruleIdRow) return "Уже существует";
                 break;
             case 'passwordRepeat':
                 if ($value !== $this->data['password']) return "Пароли не совпадают";

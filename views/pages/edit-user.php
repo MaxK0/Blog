@@ -3,6 +3,7 @@
 /**
  * @var \App\Kernel\View\IView $view
  * @var \App\Kernel\Auth\IAuth $auth
+ * @var \App\Kernel\Auth\User $user
  */
 
 $view->component('start');
@@ -26,6 +27,14 @@ $view->component('start');
         $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password');
 
         ?>
+
+        <?php if ($user->isAdmin()) { ?>
+            <select name="isAdmin">
+                <option value="0">Автор</option>
+                <option value="1" selected>Админ</option>
+            </select>
+            <?php $view->error('isAdmin'); ?>
+        <?php } ?> 
 
         <div class="form__control">
             <label for="avatar">Аватар</label>

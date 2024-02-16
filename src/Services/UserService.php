@@ -47,6 +47,37 @@ class UserService
         );
     }
 
+    public function insert(string $name, string $surname, string $nick, string $email, string $password, int $isAdmin, ?string $avatar): void
+    {
+        $this->db->insert('users', [
+            'name' => $name,
+            'surname' => $surname,
+            'nick' => $nick,
+            'email' => $email,
+            'password' => $password,
+            'is_admin' => $isAdmin,
+            'avatar' => $avatar
+        ]);
+    }
+
+    public function update(int $id, string $name, string $surname, string $nick, string $email, ?string $password, ?string $avatar, int $isAdmin): void
+    {
+        $values = [
+            'name' => $name,
+            'surname' => $surname,
+            'nick' => $nick,
+            'email' => $email,
+            'is_admin' => $isAdmin
+        ];
+
+        if (!empty($password)) $values['password'] = $password;
+        if (!empty($avatar)) $values['avatar'] = $avatar;
+
+        $conditions = ['user_id' => $id];
+
+        $this->db->update('users', $values, $conditions);
+    }
+
     public function delete(int $id): bool
     {
         return $this->db->delete('users', ['user_id' => $id]);
