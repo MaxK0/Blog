@@ -5,15 +5,21 @@ namespace App\Controllers;
 use App\Kernel\Controller\Controller;
 use App\Models\Category;
 use App\Services\CategoryService;
+use App\Services\PostService;
 
 class CategoryController extends Controller
 {
 
     private CategoryService $categoryService;
+    private PostService $postService;
 
     public function index(): void
     {
-        $this->view('category-posts');
+        $this->postService = new PostService($this->db());
+
+        $posts = $this->postService->findByCategory($this->request()->input('id'));
+
+        $this->view('category-posts', ['posts' => $posts]);
     }
 
     public function manage(): void

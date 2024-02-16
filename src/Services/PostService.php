@@ -32,7 +32,7 @@ class PostService
 
             $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-            $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
+            $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);            
 
             $author = $userService->find($post['author_id']);
 
@@ -85,6 +85,40 @@ class PostService
 
         return array_map(function ($post) use ($nick) {
             if ($post->author()->nick() === $nick) return $post;
+        }, $posts);
+    }
+
+    public function findByCategory(int $id): array
+    {
+        $posts = $this->db->get('posts');
+
+        $categoryService = new CategoryService($this->db);
+        $userService = new UserService($this->db);
+
+        $categories = $categoryService->all();
+
+        return array_map(function ($post) use ($categories, $userService, $id) {
+
+            $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
+
+            $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
+
+            $author = $userService->find($post['author_id']);
+
+            if (in_array($id, $categoriesDbId)) { 
+                return new Post(
+                    id: $post['post_id'],
+                    title: $post['title'],
+                    body: $post['body'],
+                    thumbnail: $post['thumbnail'],
+                    dateTime: $post['date_time'],
+                    isFeatured: $post['is_featured'],
+                    author: $author,
+                    categories: array_map(function ($category) use ($categoriesDbId) {
+                        if (in_array($category->id(), $categoriesDbId)) return $category;
+                    }, $categories)
+                );
+            }
         }, $posts);
     }
 
