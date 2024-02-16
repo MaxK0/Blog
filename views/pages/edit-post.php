@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var \App\Models\Post $post
  */
 
 $view->component('start');
@@ -9,22 +10,16 @@ $view->component('start');
 <section class="form__section container">
     <h2>Изменить пост</h2>    
     <form method="post" enctype="multipart/form-data">
-        <?php 
-
-        
-        
-        $view->inputAndError('title', 'Заголовок', value: 'old'); 
-        
-        ?>
+        <?php $view->inputAndError('title', 'Заголовок', value: $post->title()); ?>
 
         <select name="category">
-            <?php foreach ($categories as $category) { ?>
+            <?php foreach ($post->categories() as $category) { ?>
                 <option value="<?= $category->id() ?>"><?= $category->title() ?></option>
             <?php } ?>
         </select>
         <?php $view->error('category'); ?>
 
-        <textarea class="<?= $view->setInvalid('text') ?>" name="text" rows="10" placeholder="Текст поста" value="<?= $session->getFlash('old_text') ?? '' ?>"></textarea>
+        <textarea class="<?= $view->setInvalid('text') ?>" name="text" rows="10" placeholder="Текст поста"><?= $post->body() ?></textarea>
         <?php $view->error('text'); ?>
 
 

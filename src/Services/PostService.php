@@ -104,4 +104,23 @@ class PostService
             'category_id' => (int) $categories[0] // TODO: сделать добавление множества категорий
         ]);
     }
+
+    public function update(int $id, string $title, string $body, ?string $thumbnail, string $dateTime, int $isFeatured, array $categories)
+    {
+        $values = [
+            'title' => $title,
+            'body' => $body,
+            'date_time' => $dateTime,
+            'is_featured' => $isFeatured
+        ];
+
+        if (!empty($thumbnail)) $values['thumbnail'] = $thumbnail; 
+
+        $valuesCategories = ['category_id' => (int) $categories[0]];
+
+        $conditions = ['post_id' => $id];
+
+        $this->db->update('posts', $values, $conditions);
+        $this->db->update('posts_has_categories', $valuesCategories, $conditions);
+    }
 }

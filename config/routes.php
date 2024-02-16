@@ -39,7 +39,7 @@ return [
     Route::get('/post/add', [PostController::class, 'add'], [AuthMiddleware::class]),
     Route::post('/post/add', [PostController::class, 'store'], [AuthMiddleware::class]),
     Route::get('/post/edit', [PostController::class, 'edit'], [AuthMiddleware::class]),
-    Route::post('/post/edit', [PostController::class, 'store'], [AuthMiddleware::class]),
+    Route::post('/post/edit', [PostController::class, 'update'], [AuthMiddleware::class]),
 
     Route::get('/category', [CategoryController::class, 'index']),
     Route::get('/admin/category/add', [CategoryController::class, 'add'], [AdminMiddleware::class]),

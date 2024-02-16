@@ -11,7 +11,7 @@ class Post
         private int $id,
         private string $title,
         private string $body,
-        private string $thumbnail,
+        private ?string $thumbnail,
         private string $dateTime,
         private int $isFeatured,
         private User $author,
@@ -34,7 +34,7 @@ class Post
         return $this->body;
     }
 
-    public function thumbnail(): string
+    public function thumbnail(): ?string
     {
         return $this->thumbnail;
     }
