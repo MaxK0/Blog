@@ -34,7 +34,7 @@ class PostService
 
             $categoriesDbId = array_map(fn ($category) => $category['category_id'], $categoriesDb);
 
-            $author = $userService->find($post['author_id']);          
+            $author = $userService->find($post['author_id']);
 
             return new Post(
                 id: $post['post_id'],
@@ -77,6 +77,15 @@ class PostService
                 if (in_array($category->id(), $categoriesDbId)) return $category;
             }, $categories)
         );
+    }
+
+    public function findByAuthors(string $nick): array
+    {
+        $posts = $this->all();
+
+        return array_map(function ($post) use ($nick) {
+            if ($post->author()->nick() === $nick) return $post;
+        }, $posts);
     }
 
     public function insert(string $title, string $body, string $thumbnail, string $dateTime, int $isFeatured, int $authorId, array $categories)

@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var array<\App\Models\Post> $posts
  */
 
 $view->component('start');
@@ -10,7 +11,7 @@ $view->component('start');
     <div class="container dashboard__container">
         <button id="show__sidebar-btn" class="sidebar__toggle"><img src="/assets/img/icons/arrow.png" alt=""></button>
         <button id="hide__sidebar-btn" class="sidebar__toggle"><img src="/assets/img/icons/arrow.png" alt=""></button>
-        <aside>
+        <aside> <!-- TODO: как один компонент -->
             <ul>
                 <li>
                     <a href="/post/add">
@@ -65,13 +66,17 @@ $view->component('start');
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Заголовок</td>
-                        <td>Природа</td>
-                        <td><a href="/post/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/post/add" class="btn sm danger">Удалить</a></td>
-                        <td>user</td>
-                    </tr>                        
+                    <?php foreach ($posts as $post) { ?>
+                        <tr>
+                            <td><?= $post->title() ?></td>
+                            <td><?php foreach ($post->categories() as $category) {
+                                echo $category->title();
+                            } ?></td>
+                            <td><a href="/post/edit?id=<?= $post->id() ?>" class="btn sm">Редактировать</a></td>
+                            <td><a href="/post/delete?id=<?= $post->id() ?>" class="btn sm danger">Удалить</a></td>
+                            <td><?= $post->author()->nick() ?></td>
+                        </tr>                        
+                    <?php } ?>
                 </tbody>
             </table>
         </main>
