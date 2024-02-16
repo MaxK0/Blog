@@ -3,12 +3,13 @@
 namespace App\Controllers;
 
 use App\Kernel\Controller\Controller;
+use App\Models\Category;
 use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
 
-    private CategoryService $service;    
+    private CategoryService $categoryService;
 
     public function index(): void
     {
@@ -17,23 +18,40 @@ class CategoryController extends Controller
 
     public function manage(): void
     {
-        $this->view('admin/manage-categories');
+        $this->categoryService = new CategoryService($this->db());
+
+        $this->view('admin/manage-categories', ['categories' => $this->categoryService->all()]);
     }
 
     public function add(): void
-    {
+    { 
         $this->view('admin/add-category');
     }
 
     public function edit(): void
     {
-        $this->view('admin/edit-category');
+        $this->categoryService = new CategoryService($this->db());
+
+        $category = $this->categoryService->find($this->request()->input('id'));
+
+        $this->view('admin/edit-category', ['category' => $category]);
+    }
+
+    public function delete(): void
+    {
+        $this->categoryService = new CategoryService($this->db());
+
+        $this->categoryService->delete($this->request()->input('id'));
+
+        $this->redirect('/admin/dashboard/categories');
     }
 
     public function store(): void
     {
+        $id = $this->request()->input('id', 0);
+
         $validation = $this->request()->validate([
-            'title' => ['required', 'min:2', 'max:45'],
+            'title' => ['required', "unique:categories:category_id:$id", 'min:2', 'max:45'],
             'desc' => ['min:2']
         ]);
 
@@ -42,14 +60,41 @@ class CategoryController extends Controller
                 $this->session()->set($name, $error);
             }
 
-            if ($this->request()->uri() == '/admin/category/add') $this->redirect('/admin/category/add');
-            else if ($this->request()->uri() == '/admin/category/edit') $this->redirect('/admin/category/edit');
+            $this->redirect('/admin/category/add');
         }
 
-        $this->service = new CategoryService($this->db());
+        $this->categoryService = new CategoryService($this->db());
 
-        $this->service->insert($this->request()->input('title'), $this->request()->input('desc') ?: null);
+        $this->categoryService->insert($this->request()->input('title'), $this->request()->input('desc') ?? null);
 
-        $this->redirect('/admin');
+        $this->redirect('/admin/dashboard/categories');
+    }
+
+    public function update(): void
+    {
+        $id = $this->request()->input('id', 0);
+
+        $validation = $this->request()->validate([
+            'title' => ['required', "unique:categories:category_id:$id", 'min:2', 'max:45'],
+            'desc' => ['min:2']
+        ]);
+
+        if (!$validation) {
+            foreach ($this->request()->errors() as $name => $error) {
+                $this->session()->set($name, $error);
+            }
+
+            $this->redirect("/admin/category/edit?id=$id");
+        }
+
+        $this->categoryService = new CategoryService($this->db());
+
+        $this->categoryService->update(
+            $id,
+            $this->request()->input('title'),
+            $this->request()->input('desc') ?? null
+        );
+
+        $this->redirect('/admin/dashboard/categories');
     }
 }

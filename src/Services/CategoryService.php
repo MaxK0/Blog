@@ -29,11 +29,42 @@ class CategoryService
         }, $categories);
     }
 
-    public function insert(string $title, ?string $desc)
+    public function find(int $id): Category
+    {
+        $category = $this->db->first('categories', ['category_id' => $id]);
+
+        return new Category(
+            id: $category['category_id'],
+            title: $category['title'],
+            description: $category['description']
+        );
+    }
+
+    public function insert(string $title, ?string $desc): void
     {
         $this->db->insert('categories', [
             'title' => $title,
             'description' => $desc
         ]);
+    }
+
+    public function update(int $id, string $title, ?string $desc): void
+    {
+        $values = [
+            'title' => $title,
+            'description' => $desc
+        ];
+
+        $conditions = [
+            'category_id' => $id
+        ];
+
+        $this->db->update('categories', $values, $conditions);
+    }
+
+    public function delete(int $id): void
+    {
+        $this->db->delete('posts_has_categories', ['category_id' => $id]);
+        $this->db->delete('categories', ['category_id' => $id]);
     }
 }

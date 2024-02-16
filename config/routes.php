@@ -47,7 +47,8 @@ return [
     Route::get('/admin/category/add', [CategoryController::class, 'add'], [AdminMiddleware::class]),
     Route::post('/admin/category/add', [CategoryController::class, 'store'], [AdminMiddleware::class]),
     Route::get('/admin/category/edit', [CategoryController::class, 'edit'], [AdminMiddleware::class]),
-    Route::post('/admin/category/edit', [CategoryController::class, 'store'], [AdminMiddleware::class]),
+    Route::post('/admin/category/edit', [CategoryController::class, 'update'], [AdminMiddleware::class]),
+    Route::get('/admin/category/delete', [CategoryController::class, 'delete'], [AdminMiddleware::class]),
     
     Route::get('/dashboard', [DashboardController::class, 'index'], [AuthMiddleware::class]),
     Route::get('/dashboard/posts', [DashboardController::class, 'index'], [AuthMiddleware::class]),

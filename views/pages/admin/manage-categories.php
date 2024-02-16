@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\Kernel\View\IView $view
+ * @var array<\App\Models\Category> $categories
  */
 
 $view->component('start');
@@ -21,16 +22,15 @@ $view->component('start');
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Путешествие</td>
-                        <td><a href="/admin/category/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/admin/category/delete" class="btn sm danger">Удалить</a></td>
-                    </tr>
-                    <tr>
-                        <td>Природа</td>
-                        <td><a href="/admin/category/edit" class="btn sm">Редактировать</a></td>
-                        <td><a href="/admin/category/delete" class="btn sm danger">Удалить</a></td>
-                    </tr>                    
+                    <?php foreach ($categories as $category) { 
+                        if (!empty($category)) {?>
+                            <tr>
+                                <td><?= $category->title() ?></td>
+                                <td><a href="/admin/category/edit?id=<?= $category->id() ?>" class="btn sm">Редактировать</a></td>
+                                <td><a href="/admin/category/delete?id=<?= $category->id() ?>" class="btn sm danger">Удалить</a></td>
+                            </tr>              
+                        <?php } 
+                    } ?>
                 </tbody>
             </table>
         </main>

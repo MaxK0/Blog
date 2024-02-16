@@ -10,7 +10,7 @@ $view->component('start');
     <h2>Добавить категорию</h2>    
     <form method="post">
         <?php
-        $view->inputAndError('title', 'Заголовок', value: 'old');
+        $view->inputAndError('title', 'Заголовок');
         ?>             
 
         <textarea class="<?= $view->setInvalid('desc') ?>" name="desc" rows="4" placeholder="Описание" value="old_desc"></textarea>
