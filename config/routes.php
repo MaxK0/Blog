@@ -40,6 +40,7 @@ return [
     Route::post('/post/add', [PostController::class, 'store'], [AuthMiddleware::class]),
     Route::get('/post/edit', [PostController::class, 'edit'], [AuthMiddleware::class]),
     Route::post('/post/edit', [PostController::class, 'update'], [AuthMiddleware::class]),
+    Route::get('/post/delete', [PostController::class, 'delete'], [AuthMiddleware::class]),
     
 
     Route::get('/category', [CategoryController::class, 'index']),

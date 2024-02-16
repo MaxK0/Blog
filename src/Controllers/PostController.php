@@ -47,6 +47,15 @@ class PostController extends Controller
     public function delete(): void
     {
         $this->postService = new PostService($this->db());
+        
+        if (!$this->auth()->user()->isAdmin()) {
+            if ($this->auth()->user()->id() != $this->request()->input('id')) $this->redirect('/dashboard');
+        }
+
+        $this->postService->delete($this->request()->input('id'));
+
+        if ($this->auth()->user()->isAdmin()) $this->redirect('/admin/dashboard/posts');
+        else $this->redirect('/dashboard');
     }
 
     public function store(): void

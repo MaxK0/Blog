@@ -114,7 +114,7 @@ class PostService
             'is_featured' => $isFeatured
         ];
 
-        if (!empty($thumbnail)) $values['thumbnail'] = $thumbnail; 
+        if (!empty($thumbnail)) $values['thumbnail'] = $thumbnail;
 
         $valuesCategories = ['category_id' => (int) $categories[0]];
 
@@ -122,5 +122,11 @@ class PostService
 
         $this->db->update('posts', $values, $conditions);
         $this->db->update('posts_has_categories', $valuesCategories, $conditions);
+    }
+
+    public function delete(int $id): void
+    {
+        $this->db->delete('posts_has_categories', ['post_id' => $id]);
+        $this->db->delete('posts', ['post_id' => $id]);
     }
 }
