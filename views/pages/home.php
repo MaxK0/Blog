@@ -5,6 +5,7 @@
  * @var array<\App\Models\Post> $posts
  * @var \App\Kernel\Storage\Storage $storage
  * @var \App\Models\Category $category
+ * @var array<\App\Models\Category> $categories
  */
 
 $view->component('start');
@@ -98,12 +99,9 @@ $view->component('start');
 <!-- <========================== Категории  ==========================> -->
 <section class="category__buttons container">
     <div class="category__buttons-container">
-        <a href="*" class="category__button">Природа</a>
-        <a href="*" class="category__button">Искусство</a>
-        <a href="*" class="category__button">Путешествие</a>
-        <a href="*" class="category__button">Наука & Технологии</a>
-        <a href="*" class="category__button">Музыка</a>
-        <a href="*" class="category__button">Еда</a>
+        <?php foreach ($categories as $category) { ?>
+            <a href="/category?id=<?= $category->id() ?>" class="category__button"><?= $category->title() ?></a>
+        <?php } ?>
     </div>
 </section>
 <!-- <========================== Конец категорий  ==========================> -->

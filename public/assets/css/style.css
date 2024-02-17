@@ -407,17 +407,14 @@ footer {
 .footer__nav {
     margin-top: 3rem;
     display: flex;
-    flex-direction: row;
-}
-.couple__nav {
-    width: 50%;
-    display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
-}        
-.couple__nav > div {
+}
+       
+.footer__nav > div {
     display: flex;
-    flex-direction: column;        
+    flex-direction: column;     
+    
 }
 
 .footer__nav h4 {
@@ -686,18 +683,10 @@ footer {
     
     /* <================================ Подвал ================================> */    
     .footer__nav {
-        flex-direction: column;
-        row-gap: 2rem;
-        align-items: center;
+        justify-content: space-between;
     }
-    .couple__nav {
-        width: 100%;
-        justify-content: space-around;
-        flex-wrap: nowrap;
-    }
-    .couple__nav > div {
-        width: 11rem;
-    }
+    
+    
 
     /* <================================ Конец подвала ================================> */  
     
@@ -792,11 +781,16 @@ footer {
     .category__buttons-container {
         grid-template-columns: 1fr 1fr;        
     }    
-    .couple__nav {
-        justify-content: space-around;
+    .footer__nav {
+        row-gap: 3rem;
     }
-    .couple__nav > div {
-        width: 6rem;
+    .footer__nav > div:last-child {
+        width: 100%;
+        align-items: center;
+    }
+
+    .footer__nav > div > h4, .footer__nav > div > ul {
+        width: 5rem;
     }
     /* <================================ Конец категорий и подвала ================================> */   
 }
