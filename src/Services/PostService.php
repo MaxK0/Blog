@@ -32,7 +32,7 @@ class PostService
 
             $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-            $categoriesDbId = array_column($categoriesDb, 'category_id');            
+            $categoriesDbId = array_column($categoriesDb, 'category_id');
 
             $author = $userService->find($post['author_id']);
 
@@ -65,7 +65,7 @@ class PostService
 
         $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
 
-        $categoriesDbId = array_column($categoriesDb, 'category_id'); 
+        $categoriesDbId = array_column($categoriesDb, 'category_id');
 
         $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
             if (in_array($category->id(), $categoriesDbId)) return $category;
@@ -107,13 +107,13 @@ class PostService
 
             $author = $userService->find($post['author_id']);
 
-            $categoriesDbId = array_column($categoriesDb, 'category_id'); 
+            $categoriesDbId = array_column($categoriesDb, 'category_id');
 
             $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
                 if (in_array($category->id(), $categoriesDbId)) return $category;
             });
 
-            if (in_array($id, $categoriesDbId)) { 
+            if (in_array($id, $categoriesDbId)) {
                 return new Post(
                     id: $post['post_id'],
                     title: $post['title'],
@@ -125,6 +125,40 @@ class PostService
                     categories: $postCategories
                 );
             }
+        }, $posts);
+    }
+
+    public function search(string $text)
+    {
+        $posts = $this->db->get('posts', like: ['body' => "%$text%", 'title' => "%$text%"]);
+
+        $categoryService = new CategoryService($this->db);
+        $userService = new UserService($this->db);
+
+        $categories = $categoryService->all();
+
+        return array_map(function ($post) use ($categories, $userService) {
+
+            $categoriesDb = $this->db->get('posts_has_categories', ['post_id' => $post['post_id']]);
+
+            $categoriesDbId = array_column($categoriesDb, 'category_id');
+
+            $author = $userService->find($post['author_id']);
+
+            $postCategories = array_filter($categories, function ($category) use ($categoriesDbId) {
+                if (in_array($category->id(), $categoriesDbId)) return $category;
+            });
+
+            return new Post(
+                id: $post['post_id'],
+                title: $post['title'],
+                body: $post['body'],
+                thumbnail: $post['thumbnail'],
+                dateTime: $post['date_time'],
+                isFeatured: $post['is_featured'],
+                author: $author,
+                categories: $postCategories
+            );
         }, $posts);
     }
 

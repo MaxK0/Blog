@@ -50,10 +50,10 @@ $view->component('start');
 
 <!-- <========================== Поиск ==========================> -->
 <section class="search__bar">
-    <form action="" class="container search__bar-container">
+    <form class="container search__bar-container">
         <div>
             <img src="/assets/img/icons/search.png" alt="">
-            <input type="search" name="" placeholder="Найти...">
+            <input type="search" name="search" placeholder="Найти...">
         </div>
         <button type="submit" class="btn">Искать</button>
     </form>

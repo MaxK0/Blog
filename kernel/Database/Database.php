@@ -57,11 +57,15 @@ class Database implements IDatabase
         return (int) $this->pdo->lastInsertId();
     }
 
-    public function get(string $table, array $conditions = [], array $order = [], int $limit = -1): array
+    public function get(string $table, array $conditions = [], array $like = [], array $order = [], int $limit = -1): array
     {
         $where = '';
 
-        if (count($conditions) > 0) $where = 'WHERE ' . implode('AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions))); 
+        if (count($conditions) > 0) $where = 'WHERE ' . implode(' AND ', array_map(fn ($field) => "$field = :$field", array_keys($conditions))); 
+
+        if (!empty($like) && empty($where)) $where = 'WHERE ';
+
+        if (!empty($like)) $where .= implode(' OR ', array_map(fn ($field) => "$field LIKE :$field", array_keys($like)));
 
         $sql = "SELECT * FROM $table $where";
 
@@ -69,9 +73,11 @@ class Database implements IDatabase
 
         if ($limit > 0) $sql . " LIMIT $limit";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql); 
 
-        $stmt->execute($conditions);
+        if (!empty($conditions)) $stmt->execute($conditions);
+        else if (!empty($like)) $stmt->execute($like);
+        else $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
