@@ -23,8 +23,8 @@ $view->component('start');
         $view->inputAndError('surname', 'Фамилия', value: $surname);
         $view->inputAndError('nick', 'Ник', value: $nick);
         $view->inputAndError('email', 'Email', value: $email);
-        $view->inputAndError('password', 'Пароль', 'password');
-        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password');
+        $view->inputAndError('password', 'Пароль', 'password', '');
+        $view->inputAndError('passwordRepeat', 'Повтор пароля', 'password', '');
 
         ?>
 
