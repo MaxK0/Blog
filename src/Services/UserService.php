@@ -78,8 +78,16 @@ class UserService
         $this->db->update('users', $values, $conditions);
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): void
     {
-        return $this->db->delete('users', ['user_id' => $id]);
+        $posts = $this->db->get('posts', ['author_id' => $id]);
+
+        $postService = new PostService($this->db);
+
+        foreach ($posts as $post) {
+            $postService->delete($post['post_id']);
+        }
+
+        $this->db->delete('users', ['user_id' => $id]);
     }
 }
