@@ -14,8 +14,14 @@ $view->component('start');
 <!-- <========================== Рекомендация ==========================> -->
 <section class="featured container">
 
-    <?php foreach ($posts as $post) { 
+    <?php 
+    $lengthPosts = count($posts) - 1;
+    for ($i = $lengthPosts; $i >= 0; $i--) {
+        
+        $post = $posts[$i];
+
         $text = explode("\r\n", $post->body());
+
         if ($post->isFeatured()) { ?>
             <div class="post__thumbnail">
                 <img src="<?= $storage->url($post->thumbnail()) ?>" alt="Фото для блога">
@@ -63,8 +69,10 @@ $view->component('start');
 <!-- <========================== Посты  ==========================> -->
 <section class="posts container">
     <?php
+    for ($i = $lengthPosts; $i >= 0; $i--) { 
 
-    foreach ($posts as $post) { 
+        $post = $posts[$i];
+
         $text = explode("\r\n", $post->body());
         ?>
         <article class="post">

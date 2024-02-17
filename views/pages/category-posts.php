@@ -14,7 +14,11 @@ $view->component('start');
 
 <!-- <========================== Посты  ==========================> -->
 <section class="posts container">
-    <?php foreach ($posts as $post) { 
+    <?php 
+    $postsLength = count($posts) - 1;
+
+    for ($i = $postsLength; $i >= 0; $i--) { 
+        $post = $posts[$i];
         if (!empty($post)) { 
             $text = explode("\r\n", $post->body());
             ?>
