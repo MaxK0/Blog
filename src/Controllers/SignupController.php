@@ -53,7 +53,7 @@ class SignupController extends Controller
 
     public function signup(): void
     {
-        $this->userValidate(['/signup', '/admin/user/add']);
+        $this->userValidate(['/signup', '/admin/user/add'], 0);
 
         $name = $this->request()->input('name');
         $surname = $this->request()->input('surname');
@@ -67,12 +67,15 @@ class SignupController extends Controller
 
         $this->userService->insert($name, $surname, $nick, $email, $password, $isAdmin, $avatar);
 
-        $this->redirect('/home');
+        if ($this->request()->uri() == 'admin/user/add') $this->redirect('/admin/dashboard/users');
+        $this->redirect('/signin');
     }
 
     public function editUser(): void
     {
-        $this->userValidate(['/user/edit'], true);
+        $id = $this->auth()->user()->id();
+
+        $this->userValidate(['/user/edit'], $id, true);
 
         $id = $this->auth()->user()->id();
         $name = $this->request()->input('name');
@@ -93,7 +96,9 @@ class SignupController extends Controller
 
     public function editUserByAdmin(): void
     {
-        $this->userValidate(["/admin/user/edit?id={$this->request()->input('id')}"], true);
+        $id = $this->request()->input('id', 0);
+
+        $this->userValidate(["/admin/user/edit?id={$this->request()->input('id')}"], $id, true);
 
         $id = $this->request()->input('id');
         $name = $this->request()->input('name');
@@ -112,9 +117,8 @@ class SignupController extends Controller
         $this->redirect('/admin/dashboard/users');
     }
 
-    private function userValidate(array $redirectPaths, bool $isEdit = false): void
-    {
-        $id = $this->request()->input('id', 0);
+    private function userValidate(array $redirectPaths, int $id, bool $isEdit = false): void
+    {       
         $data = [
             'name' => ['required', 'min:2', 'max:45'],
             'surname' => ['required', 'min:2', 'max:45'],
