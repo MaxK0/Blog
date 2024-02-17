@@ -33,14 +33,14 @@ class PostController extends Controller
 
     public function edit(): void
     {        
-        if (!$this->auth()->user()->isAdmin()) {
-            if ($this->auth()->user()->id() != $this->request()->input('id')) $this->redirect('/dashboard');
-        }
-
-        $this->postService = new PostService($this->db());
-        $this->categoryService = new CategoryService($this->db());
-
+        $this->postService = new PostService($this->db());        
         $post = $this->postService->find($this->request()->input('id'));
+        
+        if (!$this->auth()->user()->isAdmin()) {
+            if ($this->auth()->user()->id() != $post->author()->id()) $this->redirect('/dashboard');
+        }        
+        
+        $this->categoryService = new CategoryService($this->db());
         $categories = $this->categoryService->all();
 
 
@@ -50,9 +50,10 @@ class PostController extends Controller
     public function delete(): void
     {
         $this->postService = new PostService($this->db());
+        $post = $this->postService->find($this->request()->input('id'));
         
         if (!$this->auth()->user()->isAdmin()) {
-            if ($this->auth()->user()->id() != $this->request()->input('id')) $this->redirect('/dashboard');
+            if ($this->auth()->user()->id() != $post->author()->id()) $this->redirect('/dashboard');
         }
 
         $this->postService->delete($this->request()->input('id'));
