@@ -2,6 +2,7 @@
 /**
  * @var \App\Kernel\View\IView $view
  * @var \App\Models\Post $post
+ * @var array<\App\Models\Category> $categories
  */
 
 $view->component('start');
@@ -13,8 +14,8 @@ $view->component('start');
         <?php $view->inputAndError('title', 'Заголовок', value: $post->title()); ?>
 
         <select name="category">
-            <?php foreach ($post->categories() as $category) { ?>
-                <option value="<?= $category->id() ?>"><?= $category->title() ?></option>
+            <?php foreach ($categories as $category) { ?>
+                <option value="<?= $category->id() ?>" <?= in_array($category, $post->categories()) ? 'selected' : '' ?> ><?= $category->title() ?></option>
             <?php } ?>
         </select>
         <?php $view->error('category'); ?>
